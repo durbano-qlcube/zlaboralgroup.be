@@ -1,0 +1,33 @@
+package com.zap.security.exception.jwt;
+
+
+
+public class TokenCipherException extends java.lang.RuntimeException
+{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3723377990860022574L;
+
+	public TokenCipherException() {
+		super();
+	}
+
+	public TokenCipherException(String arg0, Throwable arg1, boolean arg2,
+			boolean arg3) {
+		super(arg0, arg1, arg2, arg3);
+	}
+
+	public TokenCipherException(String arg0, Throwable arg1) {
+		super(arg0, arg1);
+	}
+
+	public TokenCipherException(String arg0) {
+		super(arg0);
+	}
+
+	public TokenCipherException(Throwable arg0) {
+		super(arg0);
+	}
+}

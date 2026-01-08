@@ -1,0 +1,9 @@
+<jboss-deployment-structure>
+	<ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+	<deployment>
+		<dependencies>
+			<module name="org.dom4j" />
+			<module name="org.apache.xerces" />
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>  
