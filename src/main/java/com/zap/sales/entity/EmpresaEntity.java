@@ -91,6 +91,9 @@ public class EmpresaEntity implements Serializable {
     @Column(name = "ESTADO", length = 100, insertable = true, updatable = true)
     private String estado;
 
+    @Column(name = "PARENT_COMPANY_ID", insertable = true, updatable = true)
+    private Long parentCompanyId;
+
     @Column(name = "IBAN", length = 34, insertable = true, updatable = true)
     private String iban;
 
