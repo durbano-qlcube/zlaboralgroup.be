@@ -331,7 +331,15 @@ public class EmpresaService implements Serializable {
                                                         cb.equal(venta.get("empresaEntity").get("idEmpresa"), empresa.get("idEmpresa")),
                                                         cb.equal(venta.get("parentCompanyId"), request.getParentCompanyId()));
 
-                                        predicates.add(cb.exists(parentCompanySubquery));
+                                        Subquery<VentaEntity> anyVentaSubquery = cq.subquery(VentaEntity.class);
+                                        Root<VentaEntity> anyVenta = anyVentaSubquery.from(VentaEntity.class);
+                                        anyVentaSubquery.select(anyVenta);
+                                        anyVentaSubquery.where(
+                                                        cb.equal(anyVenta.get("empresaEntity").get("idEmpresa"),
+                                                                        empresa.get("idEmpresa")));
+
+                                        predicates.add(cb.or(cb.exists(parentCompanySubquery),
+                                                        cb.not(cb.exists(anyVentaSubquery))));
                                 }
 
                         }

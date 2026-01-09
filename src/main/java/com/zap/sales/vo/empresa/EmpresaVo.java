@@ -29,38 +29,31 @@ public class EmpresaVo implements Serializable {
 	private String cnae;
 	private String domicilioFiscal;
 	private String codigoPostal;
-        private String tamanoEmpresa;
-        private BigDecimal bonificacion;
-        private BigDecimal creditosDisponibles;
-        private BigDecimal creditosGastados;
-        private String estado;
-        private Long parentCompanyId;
-        private String parentCompanyName;
-        private String iban;
+	private String tamanoEmpresa;
+	private BigDecimal bonificacion;
+	private BigDecimal creditosDisponibles;
+	private BigDecimal creditosGastados;
+	private String estado;
+	private Long parentCompanyId;
+	private String parentCompanyName;
+	private String iban;
 	private String repreLegalNombreCom;
 	private String repreLegalNif;
 	private String repreLegalTelefono;
-        private String repreLegalEmail;
-        private String uuIdEmpresa;
-	
+	private String repreLegalEmail;
+	private String uuIdEmpresa;
 
-
-	
-	
 	// ORIGEN GESTDIRECT
-	private String origin;    // ORIGEN
-	private String originUserUsername; //USER QUE HACE LA ACCION
+	private String origin; // ORIGEN
+	private String originUserUsername; // USER QUE HACE LA ACCION
 	private String originUserUuid;
 	private String originEmpresaUuid; // UUID DE REFERENCIA EN GESTDIRECT
 	private String originGestoriaUuid;//
-	
+
 	private String asesoriaNombre;
 	private String asesorNombreCompleto;
 	private String asesorTelefono;
 	private String asesorEmail;
-	
-	
-	
 
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Calendar fechaAlta;
@@ -69,17 +62,13 @@ public class EmpresaVo implements Serializable {
 	private Calendar fechaCreacion;
 	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Calendar fechaModificacion;
-	
-	
+
 	private String personaContacto;
 	private String emailContacto;
 	private String puestoContacto;
 	private String telefonoContacto;
 	private String observaciones;
 
-
-
-	
 	private List<VentaExtVo> ventas;
 	private List<AlumnoVo> trabajadores;
 
