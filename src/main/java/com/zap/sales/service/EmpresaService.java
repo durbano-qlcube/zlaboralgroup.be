@@ -338,10 +338,14 @@ public class EmpresaService implements Serializable {
 			cq.where(cb.and(predicates.toArray(new Predicate[0])));
 			cq.orderBy(cb.desc(empresa.get("fechaCreacion")));
 
-			return em.createQuery(cq).getResultList();
+			List<EmpresaSearchResponseVo> results = em.createQuery(cq).getResultList();
+			if (results == null) {
+				return new ArrayList<>();
+			}
+			return results;
 
 		} catch (javax.persistence.NoResultException ex) {
-			return null;
+			return new ArrayList<>();
 
 		} catch (Exception ex) {
 			LOGGER.error(TAG + " - Error: ", ex.getMessage());
