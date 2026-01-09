@@ -48,6 +48,7 @@ public class EmpresaSearchResponseVo implements Serializable {
     private String asesorEmail;
     private String origin;
     private String originUserUsername;
+    private Long parentCompanyId;
 
     public EmpresaSearchResponseVo(Integer idEmpresa, String razonSocial, String nombreComercial, String cif,
                                     String actividadPrincipal, Integer plantillaMedia, Calendar fechaAlta,
@@ -57,7 +58,7 @@ public class EmpresaSearchResponseVo implements Serializable {
                                     String repreLegalNombreCom, String repreLegalNif, String repreLegalTelefono,
                                     String repreLegalEmail, String asesoriaNombre, String asesorNombreCompleto,
                                     String asesorTelefono, String uuIdEmpresa,  String asesorEmail, String origin, 
-                                    String originUserUsername) {
+                                    String originUserUsername, Long parentCompanyId) {
         this.idEmpresa = idEmpresa;
         this.razonSocial = razonSocial;
         this.nombreComercial = nombreComercial;
@@ -87,5 +88,6 @@ public class EmpresaSearchResponseVo implements Serializable {
         this.asesorEmail = asesorEmail;
         this.origin = origin;
         this.originUserUsername = originUserUsername;
+        this.parentCompanyId = parentCompanyId;
     }
 }

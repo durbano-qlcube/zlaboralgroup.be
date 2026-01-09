@@ -36,7 +36,6 @@ import com.zap.sales.exception.empresa.EmpresaServiceException;
 import com.zap.sales.exception.empresa.EmpresaConVentasException;
 import com.zap.sales.exception.empresa.EmpresaNotFoundException;
 import com.zap.sales.exception.empresa.EmpresaServiceException;
-import com.zap.sales.entity.VentaEntity;
 import com.zap.sales.vo.alumno.AlumnoVo;
 import com.zap.sales.vo.empresa.EmpresaVo;
 import com.zap.sales.vo.empresa.EmpresaSearchRequestVo;
@@ -307,7 +306,7 @@ public class EmpresaService implements Serializable {
 					empresa.get("repreLegalNombreCom"), empresa.get("repreLegalNif"), empresa.get("repreLegalTelefono"),
 					empresa.get("repreLegalEmail"), empresa.get("asesoriaNombre"), empresa.get("asesorNombreCompleto"),
 					empresa.get("asesorTelefono"), empresa.get("uuIdEmpresa"),empresa.get("asesorEmail"), empresa.get("origin"), 
-					empresa.get("originUserUsername")));
+					empresa.get("originUserUsername"), empresa.get("parentCompanyId")));
 
 			List<Predicate> predicates = new ArrayList<>();
 			if (request != null) {
@@ -324,22 +323,8 @@ public class EmpresaService implements Serializable {
                                         predicates.add(cb.like(empresa.get("origin"), "%" + request.getOrigin() + "%"));
                                 }
                                 if (request.getParentCompanyId() != null) {
-                                        Subquery<VentaEntity> parentCompanySubquery = cq.subquery(VentaEntity.class);
-                                        Root<VentaEntity> venta = parentCompanySubquery.from(VentaEntity.class);
-                                        parentCompanySubquery.select(venta);
-                                        parentCompanySubquery.where(
-                                                        cb.equal(venta.get("empresaEntity").get("idEmpresa"), empresa.get("idEmpresa")),
-                                                        cb.equal(venta.get("parentCompanyId"), request.getParentCompanyId()));
-
-                                        Subquery<VentaEntity> anyVentaSubquery = cq.subquery(VentaEntity.class);
-                                        Root<VentaEntity> anyVenta = anyVentaSubquery.from(VentaEntity.class);
-                                        anyVentaSubquery.select(anyVenta);
-                                        anyVentaSubquery.where(
-                                                        cb.equal(anyVenta.get("empresaEntity").get("idEmpresa"),
-                                                                        empresa.get("idEmpresa")));
-
-                                        predicates.add(cb.or(cb.exists(parentCompanySubquery),
-                                                        cb.not(cb.exists(anyVentaSubquery))));
+                                        predicates.add(cb.equal(empresa.get("parentCompanyId"),
+                                                        request.getParentCompanyId()));
                                 }
 
                         }
@@ -390,7 +375,8 @@ public class EmpresaService implements Serializable {
                 target.setTamanoEmpresa(source.getTamanoEmpresa());
                 target.setCreditosDisponibles(source.getCreditosDisponibles());
                 target.setCreditosGastados(source.getCreditosGastados());
-                target.setEstado(source.getEstado());
+		target.setEstado(source.getEstado());
+		target.setParentCompanyId(source.getParentCompanyId());
                 target.setIban(source.getIban());
 		target.setRepreLegalNombreCom(source.getRepreLegalNombreCom());
 		target.setRepreLegalNif(source.getRepreLegalNif());
@@ -473,6 +459,9 @@ public class EmpresaService implements Serializable {
 
                 if (copyIfNull || source.getEstado() != null)
                         target.setEstado(source.getEstado());
+
+                if (copyIfNull || source.getParentCompanyId() != null)
+                        target.setParentCompanyId(source.getParentCompanyId());
 
                 if (copyIfNull || source.getRepreLegalNombreCom() != null)
                         target.setRepreLegalNombreCom(source.getRepreLegalNombreCom());
@@ -564,6 +553,7 @@ public class EmpresaService implements Serializable {
                 target.setCreditosDisponibles(source.getCreditosDisponibles());
                 target.setCreditosGastados(source.getCreditosGastados());
                 target.setEstado(source.getEstado());
+                target.setParentCompanyId(source.getParentCompanyId());
                 target.setIban(source.getIban());
 		target.setRepreLegalNombreCom(source.getRepreLegalNombreCom());
 		target.setRepreLegalNif(source.getRepreLegalNif());
