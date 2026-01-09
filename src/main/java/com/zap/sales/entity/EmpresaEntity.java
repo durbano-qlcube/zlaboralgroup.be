@@ -73,6 +73,9 @@ public class EmpresaEntity implements Serializable {
     @Column(name = "DOMICILIO_FISCAL", columnDefinition = "TEXT", insertable = true, updatable = true)
     private String domicilioFiscal;
 
+    @Column(name = "CODIGO_POSTAL", length = 20, insertable = true, updatable = true)
+    private String codigoPostal;
+
     @Column(name = "TAMANO_EMPRESA", length = 100, insertable = true, updatable = true)
     private String tamanoEmpresa;
 

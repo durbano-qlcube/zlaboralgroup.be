@@ -30,6 +30,7 @@ public class EmpresaSearchResponseVo implements Serializable {
     private Boolean esPyme;
     private String cnae;
     private String domicilioFiscal;
+    private String codigoPostal;
     private String tamanoEmpresa;
     private BigDecimal bonificacion;
     private BigDecimal creditosDisponibles;
@@ -51,7 +52,7 @@ public class EmpresaSearchResponseVo implements Serializable {
     public EmpresaSearchResponseVo(Integer idEmpresa, String razonSocial, String nombreComercial, String cif,
                                     String actividadPrincipal, Integer plantillaMedia, Calendar fechaAlta,
                                     Boolean existeRlt, Boolean esPyme, String cnae, String domicilioFiscal,
-                                    String tamanoEmpresa, BigDecimal bonificacion, BigDecimal creditosDisponibles,
+                                    String codigoPostal, String tamanoEmpresa, BigDecimal bonificacion, BigDecimal creditosDisponibles,
                                     BigDecimal creditosGastados, String estado,  String iban,
                                     String repreLegalNombreCom, String repreLegalNif, String repreLegalTelefono,
                                     String repreLegalEmail, String asesoriaNombre, String asesorNombreCompleto,
@@ -68,6 +69,7 @@ public class EmpresaSearchResponseVo implements Serializable {
         this.esPyme = esPyme;
         this.cnae = cnae;
         this.domicilioFiscal = domicilioFiscal;
+        this.codigoPostal = codigoPostal;
         this.tamanoEmpresa = tamanoEmpresa;
         this.bonificacion = bonificacion;
         this.creditosDisponibles = creditosDisponibles;

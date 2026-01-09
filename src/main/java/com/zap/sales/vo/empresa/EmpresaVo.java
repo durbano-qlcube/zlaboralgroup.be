@@ -28,6 +28,7 @@ public class EmpresaVo implements Serializable {
 	private Boolean esPyme;
 	private String cnae;
 	private String domicilioFiscal;
+	private String codigoPostal;
         private String tamanoEmpresa;
         private BigDecimal bonificacion;
         private BigDecimal creditosDisponibles;
