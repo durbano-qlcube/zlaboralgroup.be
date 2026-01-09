@@ -302,7 +302,7 @@ public class EmpresaService implements Serializable {
 					empresa.get("nombreComercial"), empresa.get("cif"), empresa.get("actividadPrincipal"),
 					empresa.get("plantillaMedia"), empresa.get("fechaAlta"), empresa.get("existeRlt"),
 					empresa.get("esPyme"), empresa.get("cnae"), empresa.get("domicilioFiscal"),
-					empresa.get("tamanoEmpresa"), empresa.get("bonificacion"), empresa.get("creditosDisponibles"),
+					empresa.get("codigoPostal"), empresa.get("tamanoEmpresa"), empresa.get("bonificacion"), empresa.get("creditosDisponibles"),
 					empresa.get("creditosGastados"), empresa.get("estado"), empresa.get("iban"),
 					empresa.get("repreLegalNombreCom"), empresa.get("repreLegalNif"), empresa.get("repreLegalTelefono"),
 					empresa.get("repreLegalEmail"), empresa.get("asesoriaNombre"), empresa.get("asesorNombreCompleto"),
@@ -378,6 +378,7 @@ public class EmpresaService implements Serializable {
 		target.setEsPyme(source.getEsPyme());
 		target.setCnae(source.getCnae());
 		target.setDomicilioFiscal(source.getDomicilioFiscal());
+		target.setCodigoPostal(source.getCodigoPostal());
                 target.setTamanoEmpresa(source.getTamanoEmpresa());
                 target.setCreditosDisponibles(source.getCreditosDisponibles());
                 target.setCreditosGastados(source.getCreditosGastados());
@@ -446,6 +447,9 @@ public class EmpresaService implements Serializable {
 
 		if (copyIfNull || source.getDomicilioFiscal() != null)
 			target.setDomicilioFiscal(source.getDomicilioFiscal());
+
+		if (copyIfNull || source.getCodigoPostal() != null)
+			target.setCodigoPostal(source.getCodigoPostal());
 
                 if (copyIfNull || source.getTamanoEmpresa() != null)
                         target.setTamanoEmpresa(source.getTamanoEmpresa());
@@ -547,6 +551,7 @@ public class EmpresaService implements Serializable {
 		target.setEsPyme(source.getEsPyme());
 		target.setCnae(source.getCnae());
 		target.setDomicilioFiscal(source.getDomicilioFiscal());
+		target.setCodigoPostal(source.getCodigoPostal());
 		target.setTamanoEmpresa(source.getTamanoEmpresa());
                 target.setCreditosDisponibles(source.getCreditosDisponibles());
                 target.setCreditosGastados(source.getCreditosGastados());
