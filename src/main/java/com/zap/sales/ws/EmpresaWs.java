@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -268,6 +269,9 @@ public class EmpresaWs {
 			TAG = "[EmpresaWs - uuidAdm:" + user.getUuid() + " >> search]";
 
 			List<EmpresaSearchResponseVo> data = empresaService.search(request, user);
+			if (data == null) {
+				data = Collections.emptyList();
+			}
 
 			Gson gson = initializesGson();
 			return Response.ok(gson.toJson(data), MediaType.APPLICATION_JSON).build();
