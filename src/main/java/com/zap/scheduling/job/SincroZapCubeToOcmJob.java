@@ -58,7 +58,7 @@ public class SincroZapCubeToOcmJob implements Serializable
 	
 	
 	@TransactionAttribute(TransactionAttributeType.NEVER)
-	@Schedule(hour = "*", minute = "*", second = "*/60")
+//	@Schedule(hour = "*", minute = "*", second = "*/60")
 	public void doExecute()
 	{  
 		Long t= System.currentTimeMillis();

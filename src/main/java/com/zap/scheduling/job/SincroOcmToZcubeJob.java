@@ -58,7 +58,7 @@ public class SincroOcmToZcubeJob implements Serializable {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.NEVER)
-	@Schedule(hour = "*", minute = "*/3")
+//	@Schedule(hour = "*", minute = "*/3")
 	public void doExecute() {
 		Long t = System.currentTimeMillis();
 		try {
