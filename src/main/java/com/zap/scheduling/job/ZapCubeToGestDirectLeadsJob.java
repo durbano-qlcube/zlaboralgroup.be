@@ -35,7 +35,7 @@ public class ZapCubeToGestDirectLeadsJob {
     GestDirectService gestDirectService;
     
     
-     @Schedule(hour = "*", minute = "*/2", second = "0", persistent = false)
+//     @Schedule(hour = "*", minute = "*/2", second = "0", persistent = false)
     public void doExecute()
     {
     	long t= System.currentTimeMillis();

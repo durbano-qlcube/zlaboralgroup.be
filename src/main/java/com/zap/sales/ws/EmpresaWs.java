@@ -134,7 +134,7 @@ public class EmpresaWs {
 			TAG = "[SaleWs - uuidAdm:" + user.getUuid() + " >>  register]";
 
 			if (empresaVo.getOrigin() == null || empresaVo.getOrigin().isEmpty()) {
-				empresaVo.setOrigin("ZAP_QL");
+				empresaVo.setOrigin("LABORALGROUP");
 				empresaVo.setOriginUserUsername(user.getUsername());
 
 			}

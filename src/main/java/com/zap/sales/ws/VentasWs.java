@@ -664,7 +664,7 @@ public class VentasWs {
                 Long parentCompanyId = ventaVo != null ? ventaVo.getParentCompanyId() : null;
 
                 if (empresaVo.getOrigin() == null) {
-                        empresaVo.setOrigin("ZAP_QL");
+                        empresaVo.setOrigin("LABORALGROUP");
                 }
                 empresaService.update(empresaVo, false);
 

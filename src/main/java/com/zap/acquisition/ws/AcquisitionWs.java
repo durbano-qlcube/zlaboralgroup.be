@@ -240,7 +240,7 @@ public class AcquisitionWs {
 
                         acquisitionVo.setAgenteUsername(user.getUsername());
                         acquisitionVo.setAgenteUuid(user.getUuid());
-			acquisitionVo.setOrigin("ZAP_QL");
+			acquisitionVo.setOrigin("LABORALGROUP");
 			acquisitionVo.setOriginUserUsername(user.getUsername());
 			if (user.getRole().equals(RoleEnum.CORDINADOR)) {
 				acquisitionVo.setCoordinadorUserName(user.getUsername());
