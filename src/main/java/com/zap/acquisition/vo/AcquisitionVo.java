@@ -3,7 +3,6 @@ package com.zap.acquisition.vo;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,76 +16,61 @@ import lombok.Data;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 public class AcquisitionVo implements Serializable {
-	private static final long serialVersionUID = -7836406887983296193L;
+    private static final long serialVersionUID = -7836406887983296193L;
 
-	private Integer idAcquisition;
-	private String nombreComercial;
-	private String cif;
-	private String name;
-	private String surname;
-	private String surname2;
-	private String fullname;
-        private String email;
-        private String phone;
-        private String description;
-        private String campaign;
-        private String campaignLeadId;
-        private String campaignAdsetName;
-        private String campaignAdName;
-        private String campaignName;
-        private String campaignFormName;
-        private String campaignPlatform;
-        private String campaignUrl;
-        private String campaignProduct;
-        private StatusAcquisitionEnum status;
-        private Long parentCompanyId;
+    private Integer idAcquisition;
+    private String nombreContacto;
+    private String telefonoContacto;
+    private String emailContacto;
+    private String cp;
+    private String poblacion;
+    private String provincia;
 
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar fxScheduling;
+    private String nombreEmpresa;
+    private String actividad;
+    private String nempleados;
+    private String telefonoEmpresa;
+    private String trabajaEmpresaPrl;
+    private String empresaActualPrl;
+    private String empresaActualPrlFechaVto;
+    private String observaciones;
 
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar fxSendToOcm;
+    private String campaignProvider;
+    private String campaignLeadId;
+    private String campaignAdsetName;
+    private String campaignAdName;
+    private String campaignName;
+    private String campaignFormName;
+    private String campaignPlatform;
+    private String campaignUrl;
+    private String campaignProduct;
 
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar fxInsertion;
+    private StatusAcquisitionEnum status;
+    private Long parentCompanyId;
 
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar dateNextcall;
-	
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar datefirstcall;
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fxScheduling;
 
-	private String ocmLastCoding;
-	private String ocmMotor;
-	private Integer ocmId;
-	private String ocmLastAgent;
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fxCreation;
 
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar ocmFxLastCall;
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fxModification;
 
-	private String coordinadorUuid;
-	private String coordinadorUserName;
-	private String supervisorUuid;
-	private String supervisorUserName;
-	private String agenteUsername;
-	private String agenteUuid;
+    private String ocmLastCoding;
+    private String ocmMotor;
+    private Integer ocmId;
+    private String ocmLastAgent;
+    private Integer ocmEndResult;
 
-	private String origin;
-	private String originUserUsername;
-	private String originUserUuid;
-	private String originGestoriaUuid;
-	private Integer originIdAdquision;
+    private String coordinadorUuid;
+    private String coordinadorUserName;
+    private String supervisorUuid;
+    private String supervisorUserName;
+    private String agenteUsername;
+    private String agenteUuid;
+    private String uuidAgenteCaptador;
+    private String uuidProvider;
 
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar fxCreation;
-
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar fxModification;
-
-	private String razonSocial;
-
-	private String uuidProvider;
-	private Integer endResult;
-	private String endResultDesc;
-	private String endResultGroup;
+    private String usernameCaptador;
 }

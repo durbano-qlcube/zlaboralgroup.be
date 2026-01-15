@@ -53,7 +53,7 @@ public class ZapCubeToGestDirectLeadsJob {
             {
                // LOGGER.info(TAG + "Procesando entidad con ORIGIN_ID_ADQUISITION: " + src.getOriginIdAdquision());
                 ResponseGestdirectVo response = gestDirectService.updateAdquisition(src);
-                LOGGER.info(TAG + "Processed entidad con ORIGIN_ID_ADQUISITION: " + src.getOriginIdAdquision());
+                LOGGER.info(TAG + "Processed entidad con ID_ADQUISITION: {}", src.getIdAcquisition());
             }
         } catch (Exception e) {
             e.printStackTrace();

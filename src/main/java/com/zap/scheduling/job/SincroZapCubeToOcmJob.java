@@ -101,14 +101,13 @@ public class SincroZapCubeToOcmJob implements Serializable
 				{
 					try {
 						lead = ocmService.register(lead);
-						LOGGER.info(TAG + "{} >> Registered in OCM ......", lead.getPhone());
+						LOGGER.info(TAG + "{} >> Registered in OCM ......", lead.getTelefonoContacto());
 
 					
 						lead.setStatus(StatusAcquisitionEnum.PROCESADO);
-						lead.setFxSendToOcm(Calendar.getInstance());
 						lead.setOcmMotor("01-CAPTURADOR LEADS CUBE");
 						acquisitionService.update(lead, false);
-						LOGGER.info(TAG + "{} >> Updated in Status PROCESADO ......", lead.getPhone());
+						LOGGER.info(TAG + "{} >> Updated in Status PROCESADO ......", lead.getTelefonoContacto());
 
 					} catch (Exception e) {
 //						lead.setStatus(StatusAcquisitionEnum.ERROR);

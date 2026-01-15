@@ -20,8 +20,10 @@ public class AcquisitionSearchResponseVo implements Serializable {
     private static final long serialVersionUID = -7836406887983296193L;
 
     private Integer idAcquisition;
-    private String fullname;
-    private String phone;
+    private String nombreContacto;
+    private String telefonoContacto;
+    private String emailContacto;
+    private String nombreEmpresa;
     private String uuidProvider;
     private String providerName;
 
@@ -40,40 +42,25 @@ public class AcquisitionSearchResponseVo implements Serializable {
     private Calendar fxCreation;
 
     @XmlJavaTypeAdapter(TimeDateAdapter.class)
-    @SerializedName("fxInsertion")
-    private Calendar fxInsertion;
+    private Calendar fxModification;
 
-    @XmlJavaTypeAdapter(TimeDateAdapter.class)
-    @SerializedName("fxLastCall")
-    private Calendar ocmFxLastCall;
-
-    @XmlJavaTypeAdapter(TimeDateAdapter.class)
-    @SerializedName("ocmFxFirstCall")
-    private Calendar ocmFxFirstCall;
-
-    private String email;
-
-    private String razonSocial;
-
-    public AcquisitionSearchResponseVo(Integer idAcquisition, String fullname, String phone, String ocmLastCoding,
-            String ocmLastAgent, String usernameCaptador, StatusAcquisitionEnum status, Calendar fxCreation,
-            Calendar fxInsertion, Calendar ocmFxLastCall, Calendar ocmFxFirstCall, String email, String razonSocial,
+    public AcquisitionSearchResponseVo(Integer idAcquisition, String nombreContacto, String telefonoContacto,
+            String emailContacto, String nombreEmpresa, String ocmLastCoding, String ocmLastAgent,
+            String usernameCaptador, StatusAcquisitionEnum status, Calendar fxCreation, Calendar fxModification,
             String uuidProvider, String providerName) {
         super();
         this.idAcquisition = idAcquisition;
-        this.fullname = fullname;
-        this.phone = phone;
-        this.uuidProvider = uuidProvider;
-        this.providerName = providerName;
+        this.nombreContacto = nombreContacto;
+        this.telefonoContacto = telefonoContacto;
+        this.emailContacto = emailContacto;
+        this.nombreEmpresa = nombreEmpresa;
         this.ocmLastCoding = ocmLastCoding;
         this.ocmLastAgent = ocmLastAgent;
         this.usernameCaptador = usernameCaptador;
         this.status = status;
         this.fxCreation = fxCreation;
-        this.fxInsertion = fxInsertion;
-        this.ocmFxLastCall = ocmFxLastCall;
-        this.ocmFxFirstCall = ocmFxFirstCall;
-        this.email = email;
-        this.razonSocial = razonSocial;
+        this.fxModification = fxModification;
+        this.uuidProvider = uuidProvider;
+        this.providerName = providerName;
     }
 }
