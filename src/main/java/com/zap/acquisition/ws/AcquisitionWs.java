@@ -242,6 +242,8 @@ public class AcquisitionWs {
                         acquisitionVo.setAgenteUuid(user.getUuid());
                         if (acquisitionVo.getUsernameCaptador() == null) {
                                 acquisitionVo.setUsernameCaptador(user.getUsername());
+                                acquisitionVo.setUuidAgenteCaptador(user.getUuid());
+
                         }
 			if (user.getRole().equals(RoleEnum.CORDINADOR)) {
 				acquisitionVo.setCoordinadorUserName(user.getUsername());
@@ -449,7 +451,7 @@ public class AcquisitionWs {
 	        
                         if (request.getFxLastCallInit()==null && request.getFxLastCallFin()!=null)
                         {
-                                Calendar fxLastCallInitStartOfDay = this.setStartOfDay(request.getFxLastCallFin());
+                        	Calendar fxLastCallInitStartOfDay = this.setStartOfDay(request.getFxLastCallFin());
                                 request.setFxLastCallInit(fxLastCallInitStartOfDay);
 				LOGGER.info(TAG + ">> FxLastCallInit: {} ", FORMAT_DATE.format(fxLastCallInitStartOfDay.getTime()));
 

@@ -31,6 +31,12 @@ public class AcquisitionSearchRequestVo implements Serializable {
     @XmlJavaTypeAdapter(TimeDateAdapter.class)
     private Calendar fxFin;
 
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fxLastCallInit;
+
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fxLastCallFin;
+    
     private String uuidCaptador;
     private String status;
 
