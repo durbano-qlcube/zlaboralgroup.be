@@ -415,7 +415,7 @@ public class OcmService implements Serializable
 		target.setPriority(70);
 		target.setAttempt(0);
 		target.setNumber(1);
-		target.setNumber1(source.getPhone());
+		target.setNumber1(source.getTelefonoContacto());
 		target.setNumber2("");
 		target.setNumber3("");
 		target.setNumber4("");
@@ -450,13 +450,16 @@ public class OcmService implements Serializable
 
 		target.setId(source.getOcmId());
 
-		target.setNombre(source.getName());
-		target.setApellidos(source.getSurname());;
-		target.setEmail(source.getEmail());
-
-		target.setObservaciones(source.getDescription());
-		target.setCif(source.getCif());
-		target.setNombreEmpresa(source.getNombreComercial());
+		target.setNombre(source.getNombreContacto());
+		target.setApellidos("");
+		target.setEmail(source.getEmailContacto());
+		target.setObservaciones(source.getObservaciones());
+		target.setNombreEmpresa(source.getNombreEmpresa());
+		target.setCp(source.getCp());
+		target.setProvincia(source.getProvincia());
+		target.setCiudad(source.getPoblacion());
+		target.setSectorProductivo(source.getActividad());
+		target.setNtrabajadores(source.getNempleados());
 		
 		
 		

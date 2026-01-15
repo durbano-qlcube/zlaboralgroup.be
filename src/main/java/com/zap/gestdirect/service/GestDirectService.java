@@ -133,7 +133,7 @@ public class GestDirectService implements Serializable
 
 		GestdirectAcquisitionVo dest = new GestdirectAcquisitionVo();
 
-		dest.setIdAcquisition(src.getOriginIdAdquision());
+		dest.setIdAcquisition(src.getIdAcquisition());
 		
 		
 		String mappedStatusString = this.toGestdirectStatusAcquisition(src.getStatus(), src.getOcmLastCoding());
@@ -150,7 +150,7 @@ public class GestDirectService implements Serializable
 
 		dest.setStatus(mappedStatus);
 
-		String sourceDescription = src.getDescription();
+		String sourceDescription = src.getObservaciones();
 		if (GestdirectStatusAcquisitionEnum.CLIENTE_EXISTENTE.toString().equals(mappedStatus.toString()))
 		{
 			String newDescription = sourceDescription + " CLIENTE YA EXISTENTE";

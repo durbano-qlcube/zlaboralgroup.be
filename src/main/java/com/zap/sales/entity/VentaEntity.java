@@ -42,79 +42,79 @@ import lombok.Data;
 //	@NamedQuery(name = "VentaEntity.loadGestdirectByStatus",query = "SELECT v FROM VentaEntity v WHERE v.status IN :statuses AND (v.origin like 'GESTDIRECT%')")
 	@NamedQuery(name = "VentaEntity.loadGestdirectByStatus",query = "SELECT v FROM VentaEntity v WHERE v.status IN :statuses AND COALESCE(v.fxModification, v.fxCreation) >= :limitDate AND v.origin LIKE 'GESTDIRECT%'"),
 	
-	@NamedQuery(name = "VentaEntity.countByAcqInsertionMonth", query = "SELECT FUNCTION('MONTH', a.fxInsertion) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-			+ "WHERE a.fxInsertion IS NOT NULL AND FUNCTION('YEAR', a.fxInsertion) = :year "
+	@NamedQuery(name = "VentaEntity.countByAcqInsertionMonth", query = "SELECT FUNCTION('MONTH', a.fxCreation) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+			+ "WHERE a.fxCreation IS NOT NULL AND FUNCTION('YEAR', a.fxCreation) = :year "
 			+ "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
-			+ "GROUP BY FUNCTION('MONTH', a.fxInsertion) ORDER BY mes"),
+			+ "GROUP BY FUNCTION('MONTH', a.fxCreation) ORDER BY mes"),
 
-	@NamedQuery(name = "VentaEntity.countByAcqLastCallMonth", query = "SELECT FUNCTION('MONTH', a.ocmFxLastCall) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-			+ "WHERE a.ocmFxLastCall IS NOT NULL AND FUNCTION('YEAR', a.ocmFxLastCall) = :year "
+	@NamedQuery(name = "VentaEntity.countByAcqLastCallMonth", query = "SELECT FUNCTION('MONTH', a.fxModification) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+			+ "WHERE a.fxModification IS NOT NULL AND FUNCTION('YEAR', a.fxModification) = :year "
 			+ "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
-			+ "GROUP BY FUNCTION('MONTH', a.ocmFxLastCall) ORDER BY mes"),
+			+ "GROUP BY FUNCTION('MONTH', a.fxModification) ORDER BY mes"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqInsertionMonthStatus", query = "SELECT FUNCTION('MONTH', a.fxInsertion) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.fxInsertion IS NOT NULL AND FUNCTION('YEAR', a.fxInsertion) = :year "
+        @NamedQuery(name = "VentaEntity.countByAcqInsertionMonthStatus", query = "SELECT FUNCTION('MONTH', a.fxCreation) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxCreation IS NOT NULL AND FUNCTION('YEAR', a.fxCreation) = :year "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status = :status "
-                        + "GROUP BY FUNCTION('MONTH', a.fxInsertion) ORDER BY mes"),
+                        + "GROUP BY FUNCTION('MONTH', a.fxCreation) ORDER BY mes"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqInsertionMonthStatusIn", query = "SELECT FUNCTION('MONTH', a.fxInsertion) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.fxInsertion IS NOT NULL AND FUNCTION('YEAR', a.fxInsertion) = :year "
+        @NamedQuery(name = "VentaEntity.countByAcqInsertionMonthStatusIn", query = "SELECT FUNCTION('MONTH', a.fxCreation) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxCreation IS NOT NULL AND FUNCTION('YEAR', a.fxCreation) = :year "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status IN :statuses "
-                        + "GROUP BY FUNCTION('MONTH', a.fxInsertion) ORDER BY mes"),
+                        + "GROUP BY FUNCTION('MONTH', a.fxCreation) ORDER BY mes"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqLastCallMonthStatus", query = "SELECT FUNCTION('MONTH', a.ocmFxLastCall) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.ocmFxLastCall IS NOT NULL AND FUNCTION('YEAR', a.ocmFxLastCall) = :year "
+        @NamedQuery(name = "VentaEntity.countByAcqLastCallMonthStatus", query = "SELECT FUNCTION('MONTH', a.fxModification) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxModification IS NOT NULL AND FUNCTION('YEAR', a.fxModification) = :year "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status = :status "
-                        + "GROUP BY FUNCTION('MONTH', a.ocmFxLastCall) ORDER BY mes"),
+                        + "GROUP BY FUNCTION('MONTH', a.fxModification) ORDER BY mes"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqLastCallMonthStatusIn", query = "SELECT FUNCTION('MONTH', a.ocmFxLastCall) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.ocmFxLastCall IS NOT NULL AND FUNCTION('YEAR', a.ocmFxLastCall) = :year "
+        @NamedQuery(name = "VentaEntity.countByAcqLastCallMonthStatusIn", query = "SELECT FUNCTION('MONTH', a.fxModification) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxModification IS NOT NULL AND FUNCTION('YEAR', a.fxModification) = :year "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status IN :statuses "
-                        + "GROUP BY FUNCTION('MONTH', a.ocmFxLastCall) ORDER BY mes"),
+                        + "GROUP BY FUNCTION('MONTH', a.fxModification) ORDER BY mes"),
 
-	@NamedQuery(name = "VentaEntity.countByAcqInsertionDay", query = "SELECT FUNCTION('DATE', a.fxInsertion) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-			+ "WHERE a.fxInsertion IS NOT NULL AND FUNCTION('DATE', a.fxInsertion) >= FUNCTION('DATE', :start) "
-			+ "AND FUNCTION('DATE', a.fxInsertion) <= FUNCTION('DATE', :end) "
+	@NamedQuery(name = "VentaEntity.countByAcqInsertionDay", query = "SELECT FUNCTION('DATE', a.fxCreation) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+			+ "WHERE a.fxCreation IS NOT NULL AND FUNCTION('DATE', a.fxCreation) >= FUNCTION('DATE', :start) "
+			+ "AND FUNCTION('DATE', a.fxCreation) <= FUNCTION('DATE', :end) "
 			+ "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
-			+ "GROUP BY FUNCTION('DATE', a.fxInsertion) ORDER BY dia"),
+			+ "GROUP BY FUNCTION('DATE', a.fxCreation) ORDER BY dia"),
 
-	@NamedQuery(name = "VentaEntity.countByAcqLastCallDay", query = "SELECT FUNCTION('DATE', a.ocmFxLastCall) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-			+ "WHERE a.ocmFxLastCall IS NOT NULL AND FUNCTION('DATE', a.ocmFxLastCall) >= FUNCTION('DATE', :start) "
-			+ "AND FUNCTION('DATE', a.ocmFxLastCall) <= FUNCTION('DATE', :end) "
+	@NamedQuery(name = "VentaEntity.countByAcqLastCallDay", query = "SELECT FUNCTION('DATE', a.fxModification) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+			+ "WHERE a.fxModification IS NOT NULL AND FUNCTION('DATE', a.fxModification) >= FUNCTION('DATE', :start) "
+			+ "AND FUNCTION('DATE', a.fxModification) <= FUNCTION('DATE', :end) "
 			+ "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
-			+ "GROUP BY FUNCTION('DATE', a.ocmFxLastCall) ORDER BY dia"),
+			+ "GROUP BY FUNCTION('DATE', a.fxModification) ORDER BY dia"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqInsertionDayStatus", query = "SELECT FUNCTION('DATE', a.fxInsertion) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.fxInsertion IS NOT NULL AND FUNCTION('DATE', a.fxInsertion) >= FUNCTION('DATE', :start) "
-                        + "AND FUNCTION('DATE', a.fxInsertion) <= FUNCTION('DATE', :end) "
+        @NamedQuery(name = "VentaEntity.countByAcqInsertionDayStatus", query = "SELECT FUNCTION('DATE', a.fxCreation) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxCreation IS NOT NULL AND FUNCTION('DATE', a.fxCreation) >= FUNCTION('DATE', :start) "
+                        + "AND FUNCTION('DATE', a.fxCreation) <= FUNCTION('DATE', :end) "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status = :status "
-                        + "GROUP BY FUNCTION('DATE', a.fxInsertion) ORDER BY dia"),
+                        + "GROUP BY FUNCTION('DATE', a.fxCreation) ORDER BY dia"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqLastCallDayStatus", query = "SELECT FUNCTION('DATE', a.ocmFxLastCall) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.ocmFxLastCall IS NOT NULL AND FUNCTION('DATE', a.ocmFxLastCall) >= FUNCTION('DATE', :start) "
-                        + "AND FUNCTION('DATE', a.ocmFxLastCall) <= FUNCTION('DATE', :end) "
+        @NamedQuery(name = "VentaEntity.countByAcqLastCallDayStatus", query = "SELECT FUNCTION('DATE', a.fxModification) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxModification IS NOT NULL AND FUNCTION('DATE', a.fxModification) >= FUNCTION('DATE', :start) "
+                        + "AND FUNCTION('DATE', a.fxModification) <= FUNCTION('DATE', :end) "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status = :status "
-                        + "GROUP BY FUNCTION('DATE', a.ocmFxLastCall) ORDER BY dia"),
+                        + "GROUP BY FUNCTION('DATE', a.fxModification) ORDER BY dia"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqInsertionDayStatusIn", query = "SELECT FUNCTION('DATE', a.fxInsertion) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.fxInsertion IS NOT NULL AND FUNCTION('DATE', a.fxInsertion) >= FUNCTION('DATE', :start) "
-                        + "AND FUNCTION('DATE', a.fxInsertion) <= FUNCTION('DATE', :end) "
+        @NamedQuery(name = "VentaEntity.countByAcqInsertionDayStatusIn", query = "SELECT FUNCTION('DATE', a.fxCreation) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxCreation IS NOT NULL AND FUNCTION('DATE', a.fxCreation) >= FUNCTION('DATE', :start) "
+                        + "AND FUNCTION('DATE', a.fxCreation) <= FUNCTION('DATE', :end) "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status IN :statuses "
-                        + "GROUP BY FUNCTION('DATE', a.fxInsertion) ORDER BY dia"),
+                        + "GROUP BY FUNCTION('DATE', a.fxCreation) ORDER BY dia"),
 
-        @NamedQuery(name = "VentaEntity.countByAcqLastCallDayStatusIn", query = "SELECT FUNCTION('DATE', a.ocmFxLastCall) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-                        + "WHERE a.ocmFxLastCall IS NOT NULL AND FUNCTION('DATE', a.ocmFxLastCall) >= FUNCTION('DATE', :start) "
-                        + "AND FUNCTION('DATE', a.ocmFxLastCall) <= FUNCTION('DATE', :end) "
+        @NamedQuery(name = "VentaEntity.countByAcqLastCallDayStatusIn", query = "SELECT FUNCTION('DATE', a.fxModification) AS dia, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+                        + "WHERE a.fxModification IS NOT NULL AND FUNCTION('DATE', a.fxModification) >= FUNCTION('DATE', :start) "
+                        + "AND FUNCTION('DATE', a.fxModification) <= FUNCTION('DATE', :end) "
                         + "AND (:uuidProvider IS NULL OR v.uuidProvider = :uuidProvider) "
                         + "AND v.status IN :statuses "
-                        + "GROUP BY FUNCTION('DATE', a.ocmFxLastCall) ORDER BY dia"),
+                        + "GROUP BY FUNCTION('DATE', a.fxModification) ORDER BY dia"),
 
 	@NamedQuery(name = "VentaEntity.countByStatusAndMonth", query = "SELECT v.status, FUNCTION('MONTH', v.fxVenta) AS mes, COUNT(v) FROM VentaEntity v "
 			+ "WHERE v.fxVenta IS NOT NULL AND FUNCTION('YEAR', v.fxVenta) = :year "
@@ -131,13 +131,13 @@ import lombok.Data;
 			+ "AND v.status IN :statuses GROUP BY v.tipoVenta, FUNCTION('MONTH', v.fxVenta) "
 			+ "ORDER BY v.tipoVenta, FUNCTION('MONTH', v.fxVenta)"),
 
-	@NamedQuery(name = "VentaEntity.countByProviderAcqInsertionMonth", query = "SELECT a.usernameCaptador, FUNCTION('MONTH', a.fxInsertion) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-			+ "WHERE a.fxInsertion IS NOT NULL AND FUNCTION('YEAR', a.fxInsertion) = :year "
-			+ "GROUP BY a.usernameCaptador, FUNCTION('MONTH', a.fxInsertion) ORDER BY a.usernameCaptador, mes"),
+	@NamedQuery(name = "VentaEntity.countByProviderAcqInsertionMonth", query = "SELECT a.usernameCaptador, FUNCTION('MONTH', a.fxCreation) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+			+ "WHERE a.fxCreation IS NOT NULL AND FUNCTION('YEAR', a.fxCreation) = :year "
+			+ "GROUP BY a.usernameCaptador, FUNCTION('MONTH', a.fxCreation) ORDER BY a.usernameCaptador, mes"),
 
-	@NamedQuery(name = "VentaEntity.countByProviderAcqLastCallMonth", query = "SELECT a.usernameCaptador, FUNCTION('MONTH', a.ocmFxLastCall) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.phone "
-			+ "WHERE a.ocmFxLastCall IS NOT NULL AND FUNCTION('YEAR', a.ocmFxLastCall) = :year "
-			+ "GROUP BY a.usernameCaptador, FUNCTION('MONTH', a.ocmFxLastCall) ORDER BY a.usernameCaptador, mes"),
+	@NamedQuery(name = "VentaEntity.countByProviderAcqLastCallMonth", query = "SELECT a.usernameCaptador, FUNCTION('MONTH', a.fxModification) AS mes, COUNT(v) FROM VentaEntity v JOIN v.empresaEntity e JOIN AcquisitionEntity a ON e.telefonoContacto = a.telefonoContacto "
+			+ "WHERE a.fxModification IS NOT NULL AND FUNCTION('YEAR', a.fxModification) = :year "
+			+ "GROUP BY a.usernameCaptador, FUNCTION('MONTH', a.fxModification) ORDER BY a.usernameCaptador, mes"),
 
 	@NamedQuery(name = "VentaEntity.carteraResumen", query = "SELECT v.status, v.bajaDate, v.fxEfecto FROM VentaEntity v "
 			+ "WHERE v.fxVenta IS NOT NULL AND v.fxVenta >= :start AND v.fxVenta <= :end") 

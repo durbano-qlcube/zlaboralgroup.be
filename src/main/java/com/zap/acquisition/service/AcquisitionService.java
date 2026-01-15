@@ -72,13 +72,6 @@ public class AcquisitionService implements Serializable
 		try {
 
 			AcquisitionEntity entity = toAcquisitionEntity(acquisitionVo);
-			String fullname = this.crearFullname(acquisitionVo.getName(), acquisitionVo.getSurname(),
-					acquisitionVo.getSurname2());
-			
-			if (fullname == null) {
-			    entity.setFullname(fullname); 
-			}
-
 			entity.setFxCreation(Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid")));
 			em.persist(entity);
 			return toAcquisitionVo(entity);
@@ -225,14 +218,6 @@ public class AcquisitionService implements Serializable
 			if (entity == null)
 				throw new AcquisitionNotFoundException();
 
-			String fullname = this.crearFullname(acquisitionVo.getName(), acquisitionVo.getSurname(),
-					acquisitionVo.getSurname2());
-			
-			if (fullname == null) {
-				acquisitionVo.setFullname(fullname);
-			}
-
-
 			this.toAcquisitionEntity(acquisitionVo, entity, copyIfNull);
 			entity.setFxModification(Calendar.getInstance());
 			em.merge(entity);
@@ -250,10 +235,6 @@ public class AcquisitionService implements Serializable
 			throw new AcquisitionServiceException(ex);
 
 		}
-	}
-
-	private String crearFullname(String nombre, String apellido1, String apellido2) {
-		return StringUtils.join(new String[] { nombre, apellido1, apellido2 }, " ");
 	}
 
 	public List<AcquisitionVo> loadByStatus(StatusAcquisitionEnum status) {
@@ -289,13 +270,12 @@ public class AcquisitionService implements Serializable
 			Root<AcquisitionEntity> acquisition = cq.from(AcquisitionEntity.class);
 
                         cq.select(cb.construct(AcquisitionSearchResponseVo.class, acquisition.get("idAcquisition"),
-                                        acquisition.get("fullname"), acquisition.get("phone"), acquisition.get("ocmLastCoding"),
-                                        acquisition.get("ocmLastAgent"), acquisition.get("usernameCaptador"), acquisition.get("status"),
-                                        acquisition.get("fxCreation"), acquisition.get("fxInsertion"), acquisition.get("ocmFxLastCall"),
-                                        acquisition.get("ocmFxFirstCall"), acquisition.get("email"), acquisition.get("razonSocial"),
-                                        acquisition.get("uuidProvider"), cb.nullLiteral(String.class)
-
-                        ));
+                                        acquisition.get("nombreContacto"), acquisition.get("telefonoContacto"),
+                                        acquisition.get("emailContacto"), acquisition.get("nombreEmpresa"),
+                                        acquisition.get("ocmLastCoding"), acquisition.get("ocmLastAgent"),
+                                        acquisition.get("usernameCaptador"), acquisition.get("status"),
+                                        acquisition.get("fxCreation"), acquisition.get("fxModification"),
+                                        acquisition.get("uuidProvider"), cb.nullLiteral(String.class)));
 
 			List<Predicate> predicates = new ArrayList<>();
 			if (request != null) {
@@ -307,20 +287,17 @@ public class AcquisitionService implements Serializable
 					predicates.add(cb.lessThanOrEqualTo(acquisition.get("fxCreation"), request.getFxFin()));
 				}
 
-                                if (request.getFxLastCallInit() != null) {
-                                        predicates.add(cb.greaterThanOrEqualTo(acquisition.get("ocmFxLastCall"), request.getFxLastCallInit()));
-                                }
-
-                                if (request.getFxLastCallFin() != null) {
-                                        predicates.add(cb.lessThanOrEqualTo(acquisition.get("ocmFxLastCall"), request.getFxLastCallFin()));
-                                }
-
-				if (!StringUtils.isBlank(request.getFullname())) {
-					predicates.add(cb.like(acquisition.get("fullname"), "%" + request.getFullname() + "%"));
+				if (!StringUtils.isBlank(request.getNombreContacto())) {
+					predicates.add(cb.like(acquisition.get("nombreContacto"), "%" + request.getNombreContacto() + "%"));
 				}
 
-				if (!StringUtils.isBlank(request.getPhone())) {
-					predicates.add(cb.like(acquisition.get("phone"), "%" + request.getPhone() + "%"));
+				if (!StringUtils.isBlank(request.getTelefonoContacto())) {
+					predicates.add(cb.like(acquisition.get("telefonoContacto"),
+							"%" + request.getTelefonoContacto() + "%"));
+				}
+
+				if (!StringUtils.isBlank(request.getEmailContacto())) {
+					predicates.add(cb.like(acquisition.get("emailContacto"), "%" + request.getEmailContacto() + "%"));
 				}
 				if (!StringUtils.isBlank(request.getOcmLastCoding())) {
 					predicates.add(cb.like(acquisition.get("ocmLastCoding"), "%" + request.getOcmLastCoding() + "%"));
@@ -330,7 +307,7 @@ public class AcquisitionService implements Serializable
 				}
 
 				if (!StringUtils.isBlank(request.getUuidCaptador())) {
-					predicates.add(cb.like(acquisition.get("agenteUuid"), "%" + request.getUuidCaptador() + "%"));
+					predicates.add(cb.like(acquisition.get("uuidAgenteCaptador"), "%" + request.getUuidCaptador() + "%"));
 				}
 
 				if (!StringUtils.isBlank(request.getStatus())) {
@@ -600,73 +577,88 @@ public class AcquisitionService implements Serializable
 		if (copyIfNull || source.getIdAcquisition() != null)
 			target.setIdAcquisition(source.getIdAcquisition());
 
-		if (copyIfNull || source.getNombreComercial() != null)
-			target.setNombreComercial(source.getNombreComercial());
+		if (copyIfNull || source.getNombreContacto() != null)
+			target.setNombreContacto(source.getNombreContacto());
 
-		if (copyIfNull || source.getRazonSocial() != null)
-			target.setRazonSocial(source.getRazonSocial());
+		if (copyIfNull || source.getTelefonoContacto() != null)
+			target.setTelefonoContacto(source.getTelefonoContacto());
 
-		if (copyIfNull || source.getCif() != null)
-			target.setCif(source.getCif());
+		if (copyIfNull || source.getEmailContacto() != null)
+			target.setEmailContacto(source.getEmailContacto());
 
-		if (copyIfNull || source.getName() != null)
-			target.setName(source.getName());
+		if (copyIfNull || source.getCp() != null)
+			target.setCp(source.getCp());
 
-		if (copyIfNull || source.getSurname() != null)
-			target.setSurname(source.getSurname());
+		if (copyIfNull || source.getPoblacion() != null)
+			target.setPoblacion(source.getPoblacion());
 
-		if (copyIfNull || source.getSurname2() != null)
-			target.setSurname2(source.getSurname2());
+		if (copyIfNull || source.getProvincia() != null)
+			target.setProvincia(source.getProvincia());
 
-		if (copyIfNull || source.getFullname() != null)
-			target.setFullname(source.getFullname());
+		if (copyIfNull || source.getNombreEmpresa() != null)
+			target.setNombreEmpresa(source.getNombreEmpresa());
 
-		if (copyIfNull || source.getEmail() != null)
-			target.setEmail(source.getEmail());
+		if (copyIfNull || source.getActividad() != null)
+			target.setActividad(source.getActividad());
 
-		if (copyIfNull || source.getPhone() != null)
-			target.setPhone(source.getPhone());
+		if (copyIfNull || source.getNempleados() != null)
+			target.setNempleados(source.getNempleados());
 
-                if (copyIfNull || source.getDescription() != null)
-                        target.setDescription(source.getDescription());
+		if (copyIfNull || source.getTelefonoEmpresa() != null)
+			target.setTelefonoEmpresa(source.getTelefonoEmpresa());
 
-                if (copyIfNull || source.getCampaign() != null)
-                        target.setCampaign(source.getCampaign());
+		if (copyIfNull || source.getTrabajaEmpresaPrl() != null)
+			target.setTrabajaEmpresaPrl(source.getTrabajaEmpresaPrl());
 
-                if (copyIfNull || source.getCampaignLeadId() != null)
-                        target.setCampaignLeadId(source.getCampaignLeadId());
+		if (copyIfNull || source.getEmpresaActualPrl() != null)
+			target.setEmpresaActualPrl(source.getEmpresaActualPrl());
 
-                if (copyIfNull || source.getCampaignAdsetName() != null)
-                        target.setCampaignAdsetName(source.getCampaignAdsetName());
+		if (copyIfNull || source.getEmpresaActualPrlFechaVto() != null)
+			target.setEmpresaActualPrlFechaVto(source.getEmpresaActualPrlFechaVto());
 
-                if (copyIfNull || source.getCampaignAdName() != null)
-                        target.setCampaignAdName(source.getCampaignAdName());
+		if (copyIfNull || source.getObservaciones() != null)
+			target.setObservaciones(source.getObservaciones());
 
-                if (copyIfNull || source.getCampaignName() != null)
-                        target.setCampaignName(source.getCampaignName());
+		if (copyIfNull || source.getCampaignProvider() != null)
+			target.setCampaignProvider(source.getCampaignProvider());
 
-                if (copyIfNull || source.getCampaignFormName() != null)
-                        target.setCampaignFormName(source.getCampaignFormName());
+		if (copyIfNull || source.getCampaignLeadId() != null)
+			target.setCampaignLeadId(source.getCampaignLeadId());
 
-                if (copyIfNull || source.getCampaignPlatform() != null)
-                        target.setCampaignPlatform(source.getCampaignPlatform());
+		if (copyIfNull || source.getCampaignAdsetName() != null)
+			target.setCampaignAdsetName(source.getCampaignAdsetName());
 
-                if (copyIfNull || source.getCampaignUrl() != null)
-                        target.setCampaignUrl(source.getCampaignUrl());
+		if (copyIfNull || source.getCampaignAdName() != null)
+			target.setCampaignAdName(source.getCampaignAdName());
 
-                if (copyIfNull || source.getCampaignProduct() != null)
-                        target.setCampaignProduct(source.getCampaignProduct());
+		if (copyIfNull || source.getCampaignName() != null)
+			target.setCampaignName(source.getCampaignName());
 
-                if (copyIfNull || source.getStatus() != null)
-                        target.setStatus(source.getStatus());
+		if (copyIfNull || source.getCampaignFormName() != null)
+			target.setCampaignFormName(source.getCampaignFormName());
+
+		if (copyIfNull || source.getCampaignPlatform() != null)
+			target.setCampaignPlatform(source.getCampaignPlatform());
+
+		if (copyIfNull || source.getCampaignUrl() != null)
+			target.setCampaignUrl(source.getCampaignUrl());
+
+		if (copyIfNull || source.getCampaignProduct() != null)
+			target.setCampaignProduct(source.getCampaignProduct());
+
+		if (copyIfNull || source.getStatus() != null)
+			target.setStatus(source.getStatus());
 		if (copyIfNull || source.getParentCompanyId() != null)
 			target.setParentCompanyId(source.getParentCompanyId());
 
 		if (copyIfNull || source.getFxScheduling() != null)
 			target.setFxScheduling(source.getFxScheduling());
 
-		if (copyIfNull || source.getFxSendToOcm() != null)
-			target.setFxSendToOcm(source.getFxSendToOcm());
+		if (copyIfNull || source.getFxCreation() != null)
+			target.setFxCreation(source.getFxCreation());
+
+		if (copyIfNull || source.getFxModification() != null)
+			target.setFxModification(source.getFxModification());
 
 		if (copyIfNull || source.getOcmLastCoding() != null)
 			target.setOcmLastCoding(source.getOcmLastCoding());
@@ -679,6 +671,9 @@ public class AcquisitionService implements Serializable
 
 		if (copyIfNull || source.getOcmId() != null)
 			target.setOcmId(source.getOcmId());
+
+		if (copyIfNull || source.getOcmEndResult() != null)
+			target.setOcmEndResult(source.getOcmEndResult());
 
 		if (copyIfNull || source.getCoordinadorUuid() != null)
 			target.setCoordinadorUuid(source.getCoordinadorUuid());
@@ -698,50 +693,35 @@ public class AcquisitionService implements Serializable
 		if (copyIfNull || source.getAgenteUsername() != null)
 			target.setAgenteUsername(source.getAgenteUsername());
 
+		if (copyIfNull || source.getUuidAgenteCaptador() != null)
+			target.setUuidAgenteCaptador(source.getUuidAgenteCaptador());
+
 		if (copyIfNull || source.getUuidProvider() != null)
 			target.setUuidProvider(source.getUuidProvider());
 
-		if (copyIfNull || source.getOrigin() != null)
-			target.setOrigin(source.getOrigin());
-
-		if (copyIfNull || source.getOriginUserUsername() != null)
-			target.setOriginUserUsername(source.getOriginUserUsername());
-
-		if (copyIfNull || source.getOriginUserUuid() != null)
-			target.setOriginUserUuid(source.getOriginUserUuid());
-
-		if (copyIfNull || source.getOriginGestoriaUuid() != null)
-			target.setOriginGestoriaUuid(source.getOriginGestoriaUuid());
-
-		if (copyIfNull || source.getOriginIdAdquision() != null)
-			target.setOriginIdAdquision(source.getOriginIdAdquision());
-
-		if (copyIfNull || source.getDateNextcall() != null)
-			target.setOcmFxNextCall(source.getDateNextcall());
-		
-		if (copyIfNull || source.getDatefirstcall() != null)
-			target.setOcmFxFirstCall(source.getDatefirstcall());
-		
-		if (copyIfNull || source.getEndResult() != null)
-			target.setEndResult(source.getEndResult());
-
-		
+		if (copyIfNull || source.getUsernameCaptador() != null)
+			target.setUsernameCaptador(source.getUsernameCaptador());
 	}
 
 	private AcquisitionVo toAcquisitionVo(AcquisitionEntity source) {
 		AcquisitionVo target = new AcquisitionVo();
 
 		target.setIdAcquisition(source.getIdAcquisition());
-		target.setNombreComercial(source.getNombreComercial());
-		target.setCif(source.getCif());
-		target.setName(source.getName());
-		target.setSurname(source.getSurname());
-		target.setSurname2(source.getSurname2());
-		target.setFullname(source.getFullname());
-		target.setEmail(source.getEmail());
-		target.setPhone(source.getPhone());
-		target.setDescription(source.getDescription());
-		target.setCampaign(source.getCampaign());
+		target.setNombreContacto(source.getNombreContacto());
+		target.setTelefonoContacto(source.getTelefonoContacto());
+		target.setEmailContacto(source.getEmailContacto());
+		target.setCp(source.getCp());
+		target.setPoblacion(source.getPoblacion());
+		target.setProvincia(source.getProvincia());
+		target.setNombreEmpresa(source.getNombreEmpresa());
+		target.setActividad(source.getActividad());
+		target.setNempleados(source.getNempleados());
+		target.setTelefonoEmpresa(source.getTelefonoEmpresa());
+		target.setTrabajaEmpresaPrl(source.getTrabajaEmpresaPrl());
+		target.setEmpresaActualPrl(source.getEmpresaActualPrl());
+		target.setEmpresaActualPrlFechaVto(source.getEmpresaActualPrlFechaVto());
+		target.setObservaciones(source.getObservaciones());
+		target.setCampaignProvider(source.getCampaignProvider());
 		target.setCampaignLeadId(source.getCampaignLeadId());
 		target.setCampaignAdsetName(source.getCampaignAdsetName());
 		target.setCampaignAdName(source.getCampaignAdName());
@@ -753,13 +733,13 @@ public class AcquisitionService implements Serializable
 		target.setStatus(source.getStatus());
 		target.setParentCompanyId(source.getParentCompanyId());
 		target.setFxScheduling(source.getFxScheduling());
-		target.setRazonSocial(source.getRazonSocial());
-
-		target.setFxSendToOcm(source.getFxSendToOcm());
+		target.setFxCreation(source.getFxCreation());
+		target.setFxModification(source.getFxModification());
 		target.setOcmLastCoding(source.getOcmLastCoding());
 		target.setOcmMotor(source.getOcmMotor());
 		target.setOcmLastAgent(source.getOcmLastAgent());
 		target.setOcmId(source.getOcmId());
+		target.setOcmEndResult(source.getOcmEndResult());
 
 		target.setCoordinadorUuid(source.getCoordinadorUuid());
 		target.setCoordinadorUserName(source.getCoordinadorUserName());
@@ -767,22 +747,10 @@ public class AcquisitionService implements Serializable
 		target.setSupervisorUserName(source.getSupervisorUserName());
 		target.setAgenteUuid(source.getAgenteUuid());
 		target.setAgenteUsername(source.getAgenteUsername());
+		target.setUuidAgenteCaptador(source.getUuidAgenteCaptador());
 
 		target.setUuidProvider(source.getUuidProvider());
-
-		target.setOrigin(source.getOrigin());
-		target.setOriginUserUsername(source.getOriginUserUsername());
-		target.setOriginUserUuid(source.getOriginUserUuid());
-		target.setOriginGestoriaUuid(source.getOriginGestoriaUuid());
-		target.setOriginIdAdquision(source.getOriginIdAdquision());
-
-		target.setFxCreation(source.getFxCreation());
-		target.setFxModification(source.getFxModification());
-
-		target.setDateNextcall(source.getOcmFxNextCall());
-		target.setDatefirstcall(source.getOcmFxFirstCall());
-		target.setEndResultDesc(source.getOcmLastCoding());
-		target.setEndResult(source.getEndResult());
+		target.setUsernameCaptador(source.getUsernameCaptador());
 
 		return target;
 	}
@@ -790,16 +758,21 @@ public class AcquisitionService implements Serializable
 	private AcquisitionEntity toAcquisitionEntity(AcquisitionVo source) {
 		AcquisitionEntity target = new AcquisitionEntity();
 		target.setIdAcquisition(source.getIdAcquisition());
-		target.setNombreComercial(source.getNombreComercial());
-		target.setCif(source.getCif());
-		target.setName(source.getName());
-		target.setSurname(source.getSurname());
-		target.setSurname2(source.getSurname2());
-		target.setFullname(source.getFullname());
-		target.setEmail(source.getEmail());
-		target.setPhone(source.getPhone());
-		target.setDescription(source.getDescription());
-		target.setCampaign(source.getCampaign());
+		target.setNombreContacto(source.getNombreContacto());
+		target.setTelefonoContacto(source.getTelefonoContacto());
+		target.setEmailContacto(source.getEmailContacto());
+		target.setCp(source.getCp());
+		target.setPoblacion(source.getPoblacion());
+		target.setProvincia(source.getProvincia());
+		target.setNombreEmpresa(source.getNombreEmpresa());
+		target.setActividad(source.getActividad());
+		target.setNempleados(source.getNempleados());
+		target.setTelefonoEmpresa(source.getTelefonoEmpresa());
+		target.setTrabajaEmpresaPrl(source.getTrabajaEmpresaPrl());
+		target.setEmpresaActualPrl(source.getEmpresaActualPrl());
+		target.setEmpresaActualPrlFechaVto(source.getEmpresaActualPrlFechaVto());
+		target.setObservaciones(source.getObservaciones());
+		target.setCampaignProvider(source.getCampaignProvider());
 		target.setCampaignLeadId(source.getCampaignLeadId());
 		target.setCampaignAdsetName(source.getCampaignAdsetName());
 		target.setCampaignAdName(source.getCampaignAdName());
@@ -811,15 +784,13 @@ public class AcquisitionService implements Serializable
 		target.setStatus(source.getStatus());
 		target.setParentCompanyId(source.getParentCompanyId());
 		target.setFxScheduling(source.getFxScheduling());
-		target.setRazonSocial(source.getRazonSocial());
-
-		target.setFxSendToOcm(source.getFxSendToOcm());
+		target.setFxCreation(source.getFxCreation());
+		target.setFxModification(source.getFxModification());
 		target.setOcmLastCoding(source.getOcmLastCoding());
 		target.setOcmMotor(source.getOcmMotor());
 		target.setOcmLastAgent(source.getOcmLastAgent());
 		target.setOcmId(source.getOcmId());
-		target.setOcmFxLastCall(source.getOcmFxLastCall());
-		target.setFxInsertion(source.getFxInsertion());
+		target.setOcmEndResult(source.getOcmEndResult());
 
 		target.setCoordinadorUuid(source.getCoordinadorUuid());
 		target.setCoordinadorUserName(source.getCoordinadorUserName());
@@ -827,19 +798,10 @@ public class AcquisitionService implements Serializable
 		target.setSupervisorUserName(source.getSupervisorUserName());
 		target.setAgenteUuid(source.getAgenteUuid());
 		target.setAgenteUsername(source.getAgenteUsername());
+		target.setUuidAgenteCaptador(source.getUuidAgenteCaptador());
 
 		target.setUuidProvider(source.getUuidProvider());
-
-		target.setOrigin(source.getOrigin());
-		target.setOriginUserUsername(source.getOriginUserUsername());
-		target.setOriginUserUuid(source.getOriginUserUuid());
-		target.setOriginGestoriaUuid(source.getOriginGestoriaUuid());
-		target.setOriginIdAdquision(source.getOriginIdAdquision());
-
-		target.setOcmFxNextCall(source.getDateNextcall());
-		target.setOcmFxFirstCall(source.getDatefirstcall());
-
-		target.setEndResult(source.getEndResult());
+		target.setUsernameCaptador(source.getUsernameCaptador());
 
 		return target;
 	}

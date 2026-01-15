@@ -13,40 +13,29 @@ import com.zap.maintenance.service.adapter.TimeDateAdapter;
 
 import lombok.Data;
 
-
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class AcquisitionSearchRequestVo implements Serializable
-{
-	private static final long serialVersionUID = -7836406887983296193L;
-	
+public class AcquisitionSearchRequestVo implements Serializable {
+    private static final long serialVersionUID = -7836406887983296193L;
 
-	private String fullname;
-	private String	email;
-	private String	phone;
-	private String ocmLastCoding;
-	private String  ocmLastAgent;
-	
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar fxInicio;
-	
-	@XmlJavaTypeAdapter(TimeDateAdapter.class)
-	private Calendar fxFin;
+    private String nombreContacto;
+    private String emailContacto;
+    private String telefonoContacto;
+    private String ocmLastCoding;
+    private String ocmLastAgent;
 
-        @XmlJavaTypeAdapter(TimeDateAdapter.class)
-        private Calendar fxLastCallInit;
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fxInicio;
 
-        @XmlJavaTypeAdapter(TimeDateAdapter.class)
-        private Calendar fxLastCallFin;
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fxFin;
 
-	private String	uuidCaptador;
-	private String	status;
+    private String uuidCaptador;
+    private String status;
 
-        private Long parentCompanyId;
-        private List<Long> parentCompanyIds;
-	private String	uuidProvider;
-        private String  uuidSubProvider;
-
-
+    private Long parentCompanyId;
+    private List<Long> parentCompanyIds;
+    private String uuidProvider;
+    private String uuidSubProvider;
 }

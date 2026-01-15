@@ -230,8 +230,8 @@ public class AcquisitionWs {
                         if (acquisitionVo == null)
                                 throw new IllegalArgumentException(TAG +" >> 'AuthUserVo' can not be null");
 
-                        if (acquisitionVo.getPhone() == null || "".equals(acquisitionVo.getPhone()))
-                                throw new IllegalArgumentException(TAG +" >> 'acquisitionVo.getPhone' can not be null or empty");
+                        if (acquisitionVo.getTelefonoContacto() == null || "".equals(acquisitionVo.getTelefonoContacto()))
+                                throw new IllegalArgumentException(TAG +" >> 'acquisitionVo.getTelefonoContacto' can not be null or empty");
 
                         String uuidProvider = resolveUuidProvider(user);
                         uuidProvider = resolveMainProviderUuid(user, uuidProvider);
@@ -240,8 +240,9 @@ public class AcquisitionWs {
 
                         acquisitionVo.setAgenteUsername(user.getUsername());
                         acquisitionVo.setAgenteUuid(user.getUuid());
-			acquisitionVo.setOrigin("LABORALGROUP");
-			acquisitionVo.setOriginUserUsername(user.getUsername());
+                        if (acquisitionVo.getUsernameCaptador() == null) {
+                                acquisitionVo.setUsernameCaptador(user.getUsername());
+                        }
 			if (user.getRole().equals(RoleEnum.CORDINADOR)) {
 				acquisitionVo.setCoordinadorUserName(user.getUsername());
 				acquisitionVo.setCoordinadorUuid(user.getUuid());
@@ -545,8 +546,8 @@ public class AcquisitionWs {
 			if (acquisitionVo == null)
 				throw new IllegalArgumentException(TAG +" >> 'AuthUserVo' can not be null");
 			
-			if (acquisitionVo.getPhone() == null || "".equals(acquisitionVo.getPhone()))
-				throw new IllegalArgumentException(TAG +" >> 'acquisitionVo.getPhone' can not be null or empty");
+			if (acquisitionVo.getTelefonoContacto() == null || "".equals(acquisitionVo.getTelefonoContacto()))
+				throw new IllegalArgumentException(TAG +" >> 'acquisitionVo.getTelefonoContacto' can not be null or empty");
 		
 			AuthUserVo user = authService.loadByUuid(acquisitionVo.getAgenteUuid());
 			acquisitionVo.setAgenteUsername(user.getUsername());

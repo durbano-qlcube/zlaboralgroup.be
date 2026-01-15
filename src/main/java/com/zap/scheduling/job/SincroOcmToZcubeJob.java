@@ -102,18 +102,15 @@ public class SincroOcmToZcubeJob implements Serializable {
 							}
 
 						
-							if (!ocm.getEndResultDesc().equalsIgnoreCase(existing.getOcmLastCoding()) || 
-									!existing.getStatus().toString().equals(statusOCM.toString()) ||
-									(ocm.getDateLastcall() != null && !ocm.getDateLastcall().equals(existing.getOcmFxLastCall()))) {
+							if (!ocm.getEndResultDesc().equalsIgnoreCase(existing.getOcmLastCoding())
+									|| !existing.getStatus().toString().equals(statusOCM.toString())) {
 
 								existing.setOcmLastAgent(ocm.getLastAgent());
 								existing.setOcmLastCoding(ocm.getEndResultDesc());
-								existing.setDescription(ocm.getObservaciones());
-								existing.setOcmLastAgent(ocm.getLastAgent());
-								existing.setOcmLastCoding(ocm.getEndResultDesc());
-								existing.setFxInsertion(ocm.getDateInsert());
-								existing.setOcmFxLastCall(ocm.getDateLastcall());
-								existing.setDatefirstcall(ocm.getDateFirstcall());
+								existing.setObservaciones(ocm.getObservaciones());
+								existing.setEmailContacto(ocm.getEmail());
+								existing.setOcmEndResult(ocm.getEndResult());
+								existing.setCampaignProvider(ocm.getCampaignProvider());
 								if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
 									existing.setStatus(StatusAcquisitionEnum.CERRADO);
 								} else {
@@ -155,9 +152,8 @@ public class SincroOcmToZcubeJob implements Serializable {
 	private void createAdquisition(LeadsMotorVo ocm) throws Exception {
 
 		AcquisitionVo nuevo = new AcquisitionVo();
-		nuevo.setPhone(ocm.getNumber1());
-		nuevo.setName(ocm.getNombre());
-		nuevo.setSurname(ocm.getApellidos());
+		nuevo.setTelefonoContacto(ocm.getNumber1());
+		nuevo.setNombreContacto(ocm.getNombre());
 		if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
 			nuevo.setStatus(StatusAcquisitionEnum.CERRADO);
 		} else {
@@ -167,16 +163,10 @@ public class SincroOcmToZcubeJob implements Serializable {
 		nuevo.setOcmLastAgent(ocm.getLastAgent());
 		nuevo.setOcmLastCoding(ocm.getEndResultDesc());
 		nuevo.setOcmMotor(ocm.getCampaignProvider());
-		nuevo.setEmail(ocm.getEmail());
-		nuevo.setDescription(ocm.getObservaciones());
-		nuevo.setCif(null);
-		nuevo.setFxInsertion(ocm.getDateInsert());
-		nuevo.setOcmFxLastCall(ocm.getDateLastcall());
-		nuevo.setDateNextcall(ocm.getDateNextcall());
-		nuevo.setDatefirstcall(ocm.getDateFirstcall());
-		nuevo.setOcmLastCoding(ocm.getEndResultDesc());
-		nuevo.setEndResult(ocm.getEndResult());
-		nuevo.setFullname(ocm.getFullname());
+		nuevo.setEmailContacto(ocm.getEmail());
+		nuevo.setObservaciones(ocm.getObservaciones());
+		nuevo.setCampaignProvider(ocm.getCampaignProvider());
+		nuevo.setOcmEndResult(ocm.getEndResult());
 		nuevo.setCampaignLeadId(ocm.getCampaignLeadId());
 		nuevo.setCampaignAdsetName(ocm.getCampaignAdsetName());
 		nuevo.setCampaignAdName(ocm.getCampaignAdName());
