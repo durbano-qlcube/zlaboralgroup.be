@@ -244,7 +244,7 @@ public class AcquisitionEntity implements Serializable {
     private String ocmLastAgent;
 
     @Column(name = "OCM_END_RESULT", insertable = true, updatable = true)
-    private Integer ocmEndResult;
+    private String ocmEndResult;
 
     @Column(name = "OCM_ID", insertable = true, updatable = true)
     private Integer ocmId;

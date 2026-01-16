@@ -70,7 +70,7 @@ public class AcquisitionVo implements Serializable {
     private String ocmMotor;
     private Integer ocmId;
     private String ocmLastAgent;
-    private Integer ocmEndResult;
+    private String ocmEndResult;
 
     private String coordinadorUuid;
     private String coordinadorUserName;

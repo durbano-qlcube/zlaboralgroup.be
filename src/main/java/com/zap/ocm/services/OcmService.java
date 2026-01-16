@@ -378,7 +378,7 @@ public class OcmService implements Serializable
 
 	        target.setAttempt((Integer) row[i++]);
 	        target.setLastAgent((String) row[i++]);
-	        target.setEndResult((Integer) row[i++]);
+	        target.setEndResult((String) row[i++]);
 	        target.setEndResultDesc((String) row[i++]);
 	        target.setEndResultGroup((String) row[i++]);
 

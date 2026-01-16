@@ -30,7 +30,7 @@ public class LeadsMotorVo {
 
     private Integer attempt;
     private String lastAgent;
-    private Integer endResult;
+    private String endResult;
     private String endResultDesc;
     private String endResultGroup;
 
