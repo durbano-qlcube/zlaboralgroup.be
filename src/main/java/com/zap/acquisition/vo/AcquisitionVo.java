@@ -45,6 +45,15 @@ public class AcquisitionVo implements Serializable {
     private String campaignUrl;
     private String campaignProduct;
 
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar dateFirstcall;
+
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar dateLastcall;
+
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar dateNextcall;
+
     private StatusAcquisitionEnum status;
     private Long parentCompanyId;
 

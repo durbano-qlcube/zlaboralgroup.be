@@ -646,6 +646,15 @@ public class AcquisitionService implements Serializable
 		if (copyIfNull || source.getCampaignProduct() != null)
 			target.setCampaignProduct(source.getCampaignProduct());
 
+		if (copyIfNull || source.getDateFirstcall() != null)
+			target.setDateFirstcall(source.getDateFirstcall());
+
+		if (copyIfNull || source.getDateLastcall() != null)
+			target.setDateLastcall(source.getDateLastcall());
+
+		if (copyIfNull || source.getDateNextcall() != null)
+			target.setDateNextcall(source.getDateNextcall());
+
 		if (copyIfNull || source.getStatus() != null)
 			target.setStatus(source.getStatus());
 		if (copyIfNull || source.getParentCompanyId() != null)
@@ -730,6 +739,9 @@ public class AcquisitionService implements Serializable
 		target.setCampaignPlatform(source.getCampaignPlatform());
 		target.setCampaignUrl(source.getCampaignUrl());
 		target.setCampaignProduct(source.getCampaignProduct());
+		target.setDateFirstcall(source.getDateFirstcall());
+		target.setDateLastcall(source.getDateLastcall());
+		target.setDateNextcall(source.getDateNextcall());
 		target.setStatus(source.getStatus());
 		target.setParentCompanyId(source.getParentCompanyId());
 		target.setFxScheduling(source.getFxScheduling());
@@ -781,6 +793,9 @@ public class AcquisitionService implements Serializable
 		target.setCampaignPlatform(source.getCampaignPlatform());
 		target.setCampaignUrl(source.getCampaignUrl());
 		target.setCampaignProduct(source.getCampaignProduct());
+		target.setDateFirstcall(source.getDateFirstcall());
+		target.setDateLastcall(source.getDateLastcall());
+		target.setDateNextcall(source.getDateNextcall());
 		target.setStatus(source.getStatus());
 		target.setParentCompanyId(source.getParentCompanyId());
 		target.setFxScheduling(source.getFxScheduling());
