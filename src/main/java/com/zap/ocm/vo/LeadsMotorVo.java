@@ -38,6 +38,14 @@ public class LeadsMotorVo {
     private String apellidos;
     private String email;
     private String observaciones;
+    private String nombreContacto;
+    private String telefonoContacto;
+    private String actividad;
+    private String telefonoEmpresa;
+    private String trabajaEmpresaPrl;
+    private String empresaActualPrl;
+    private String empresaActualPrlFechaVto;
+    private String poblacion;
     private String campaignId;
     private String campaignProvider;
     private String provedorBdd;

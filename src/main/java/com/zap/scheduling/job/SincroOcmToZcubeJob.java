@@ -3,6 +3,7 @@ package com.zap.scheduling.job;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
@@ -101,14 +102,64 @@ public class SincroOcmToZcubeJob implements Serializable {
 								statusOCM = StatusAcquisitionEnum.ABIERTO;
 							}
 
-						
-							if (!ocm.getEndResultDesc().equalsIgnoreCase(existing.getOcmLastCoding())
-									|| !existing.getStatus().toString().equals(statusOCM.toString())) {
+							String telefonoContacto = StringUtils.defaultIfBlank(ocm.getTelefonoContacto(),
+									ocm.getNumber1());
+							boolean statusChanged = existing.getStatus() == null
+									|| !existing.getStatus().toString().equals(statusOCM.toString());
+							boolean shouldUpdate = statusChanged
+									|| !StringUtils.equalsIgnoreCase(ocm.getEndResultDesc(),
+											existing.getOcmLastCoding())
+									|| !StringUtils.equals(ocm.getObservaciones(), existing.getObservaciones())
+									|| !StringUtils.equals(ocm.getEmail(), existing.getEmailContacto())
+									|| !StringUtils.equals(ocm.getNombreContacto(), existing.getNombreContacto())
+									|| !StringUtils.equals(telefonoContacto, existing.getTelefonoContacto())
+									|| !StringUtils.equals(ocm.getNombreEmpresa(), existing.getNombreEmpresa())
+									|| !StringUtils.equals(ocm.getActividad(), existing.getActividad())
+									|| !StringUtils.equals(ocm.getNempleados(), existing.getNempleados())
+									|| !StringUtils.equals(ocm.getTelefonoEmpresa(), existing.getTelefonoEmpresa())
+									|| !StringUtils.equals(ocm.getTrabajaEmpresaPrl(),
+											existing.getTrabajaEmpresaPrl())
+									|| !StringUtils.equals(ocm.getEmpresaActualPrl(),
+											existing.getEmpresaActualPrl())
+									|| !StringUtils.equals(ocm.getEmpresaActualPrlFechaVto(),
+											existing.getEmpresaActualPrlFechaVto())
+									|| !StringUtils.equals(ocm.getCp(), existing.getCp())
+									|| !StringUtils.equals(ocm.getPoblacion(), existing.getPoblacion())
+									|| !StringUtils.equals(ocm.getProvincia(), existing.getProvincia())
+									|| !Objects.equals(ocm.getDateFirstcall(), existing.getDateFirstcall())
+									|| !Objects.equals(ocm.getDateLastcall(), existing.getDateLastcall())
+									|| !Objects.equals(ocm.getDateNextcall(), existing.getDateNextcall())
+									|| !StringUtils.equals(ocm.getCampaignProvider(), existing.getCampaignProvider())
+									|| !StringUtils.equals(ocm.getCampaignLeadId(), existing.getCampaignLeadId())
+									|| !StringUtils.equals(ocm.getCampaignAdsetName(), existing.getCampaignAdsetName())
+									|| !StringUtils.equals(ocm.getCampaignAdName(), existing.getCampaignAdName())
+									|| !StringUtils.equals(ocm.getCampaignName(), existing.getCampaignName())
+									|| !StringUtils.equals(ocm.getCampaignFormName(), existing.getCampaignFormName())
+									|| !StringUtils.equals(ocm.getCampaignPlatform(), existing.getCampaignPlatform())
+									|| !StringUtils.equals(ocm.getCampaignUrl(), existing.getCampaignUrl())
+									|| !StringUtils.equals(ocm.getCampaignProduct(), existing.getCampaignProduct());
+
+							if (shouldUpdate) {
 
 								existing.setOcmLastAgent(ocm.getLastAgent());
 								existing.setOcmLastCoding(ocm.getEndResultDesc());
 								existing.setObservaciones(ocm.getObservaciones());
 								existing.setEmailContacto(ocm.getEmail());
+								existing.setNombreContacto(ocm.getNombreContacto());
+								existing.setTelefonoContacto(telefonoContacto);
+								existing.setNombreEmpresa(ocm.getNombreEmpresa());
+								existing.setActividad(ocm.getActividad());
+								existing.setNempleados(ocm.getNempleados());
+								existing.setTelefonoEmpresa(ocm.getTelefonoEmpresa());
+								existing.setTrabajaEmpresaPrl(ocm.getTrabajaEmpresaPrl());
+								existing.setEmpresaActualPrl(ocm.getEmpresaActualPrl());
+								existing.setEmpresaActualPrlFechaVto(ocm.getEmpresaActualPrlFechaVto());
+								existing.setCp(ocm.getCp());
+								existing.setPoblacion(ocm.getPoblacion());
+								existing.setProvincia(ocm.getProvincia());
+								existing.setDateFirstcall(ocm.getDateFirstcall());
+								existing.setDateLastcall(ocm.getDateLastcall());
+								existing.setDateNextcall(ocm.getDateNextcall());
 								existing.setOcmEndResult(ocm.getEndResult());
 								existing.setCampaignProvider(ocm.getCampaignProvider());
 								if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
@@ -152,8 +203,9 @@ public class SincroOcmToZcubeJob implements Serializable {
 	private void createAdquisition(LeadsMotorVo ocm) throws Exception {
 
 		AcquisitionVo nuevo = new AcquisitionVo();
-		nuevo.setTelefonoContacto(ocm.getNumber1());
-		nuevo.setNombreContacto(ocm.getNombre());
+		nuevo.setTelefonoContacto(
+				StringUtils.defaultIfBlank(ocm.getTelefonoContacto(), ocm.getNumber1()));
+		nuevo.setNombreContacto(ocm.getNombreContacto());
 		if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
 			nuevo.setStatus(StatusAcquisitionEnum.CERRADO);
 		} else {
@@ -164,9 +216,22 @@ public class SincroOcmToZcubeJob implements Serializable {
 		nuevo.setOcmLastCoding(ocm.getEndResultDesc());
 		nuevo.setOcmMotor(ocm.getCampaignProvider());
 		nuevo.setEmailContacto(ocm.getEmail());
+		nuevo.setNombreEmpresa(ocm.getNombreEmpresa());
+		nuevo.setActividad(ocm.getActividad());
+		nuevo.setNempleados(ocm.getNempleados());
+		nuevo.setTelefonoEmpresa(ocm.getTelefonoEmpresa());
+		nuevo.setTrabajaEmpresaPrl(ocm.getTrabajaEmpresaPrl());
+		nuevo.setEmpresaActualPrl(ocm.getEmpresaActualPrl());
+		nuevo.setEmpresaActualPrlFechaVto(ocm.getEmpresaActualPrlFechaVto());
+		nuevo.setCp(ocm.getCp());
+		nuevo.setPoblacion(ocm.getPoblacion());
+		nuevo.setProvincia(ocm.getProvincia());
 		nuevo.setObservaciones(ocm.getObservaciones());
 		nuevo.setCampaignProvider(ocm.getCampaignProvider());
 		nuevo.setOcmEndResult(ocm.getEndResult());
+		nuevo.setDateFirstcall(ocm.getDateFirstcall());
+		nuevo.setDateLastcall(ocm.getDateLastcall());
+		nuevo.setDateNextcall(ocm.getDateNextcall());
 		nuevo.setCampaignLeadId(ocm.getCampaignLeadId());
 		nuevo.setCampaignAdsetName(ocm.getCampaignAdsetName());
 		nuevo.setCampaignAdName(ocm.getCampaignAdName());
@@ -187,7 +252,7 @@ public class SincroOcmToZcubeJob implements Serializable {
 				nuevo.setCoordinadorUuid(authUserVo.getUuidCordinador());
 				acquisitionService.create(nuevo);
 			} else {
-				LOGGER.warn("{} - AuthUserVo is null for CMP_PROVIDER: {}", TAG, ocm.getCampaignProvider());
+				LOGGER.warn("{} - AuthUserVo is null for CMP_PROVIDER: {}", TAG, ocm.getProvider());
 			}
 		}
 

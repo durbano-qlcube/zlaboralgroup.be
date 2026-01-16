@@ -176,6 +176,18 @@ public class AcquisitionEntity implements Serializable {
     @Column(name = "CAMPAIGN_PRODUCT", length = 300, insertable = true, updatable = true)
     private String campaignProduct;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_FIRSTCALL", unique = false, nullable = true, insertable = true, updatable = true)
+    private Calendar dateFirstcall;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_LASTCALL", unique = false, nullable = true, insertable = true, updatable = true)
+    private Calendar dateLastcall;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_NEXTCALL", unique = false, nullable = true, insertable = true, updatable = true)
+    private Calendar dateNextcall;
+
     @Column(name = "PARENT_COMPANY_ID", insertable = true, updatable = true)
     private Long parentCompanyId;
 

@@ -315,12 +315,14 @@ public class OcmService implements Serializable
 
         	String queryZapDkvMotorLead = "SELECT dat.id, dat.status, dat.priority, dat.number1, dat.dateinsert, dat.datefirstcall, dat.datelastcall, dat.datenextcall, " +
                     "dat.attempt, dat.lastagent, dat.endresult, dat.endresultdesc, dat.endresultgroup, " +
-                    "dex.NOMBRE, dex.APELLIDOS, dex.EMAIL, dex.OBSERVACIONES, dex.provider, dex.fullname, " +
-                    "dex.CAMPAIGN_LEAD_ID, dex.CAMPAIGN_ADSET_NAME, dex.CAMPAIGN_AD_NAME, dex.CAMPAIGN_NAME, " +
-                    "dex.CAMPAIGN_FORM_NAME, dex.CAMPAIGN_PLATFORM, dex.CAMPAIGN_URL, dex.CAMPAIGN_PRODUCT " +
-                    "FROM ocmdb.skill_avan_leads_motor_data dat " +
-                    "INNER JOIN ocmdb.skill_avan_leads_motor_dataexten dex ON dat.id = dex.id " +
-                    "WHERE DATE(dat.dateinsert) >'2025-01-01' AND dat.idload in (849,850,853,854) " +
+                    "dex.NOMBRE_CONTACTO, dex.TELEFONO_CONTACTO, dex.EMAIL_CONTACTO, dex.NOMBRE_EMPRESA, dex.ACTIVIDAD, dex.NEMPLEADOS, " +
+                    "dex.TELEFONO_EMPRESA, dex.TRABAJA_EMPRESA_PRL, dex.EMPRESA_ACTUAL_PRL, dex.EMPRESA_ACTUAL_PRL_FECHA_VTO, " +
+                    "dex.CP, dex.POBLACION, dex.PROVINCIA, dex.OBSERVACIONES, dex.CAMPAING_PROVIDER, dex.CAMPAING_LEAD_ID, " +
+                    "dex.CAMPAING_AD_NAME, dex.CAMPAING_ADSET_NAME, dex.CAMPAIGN_NAME, dex.CAMPAIGN_FORM_NAME, " +
+                    "dex.CAMPAIGN_PLATFORM, dex.CAMPAIGN_URL, dex.CAMPAIGN_PRODUCT " +
+                    "FROM ocmdb.skill_laboral_lead_motor_data dat " +
+                    "INNER JOIN ocmdb.skill_laboral_lead_motor_dataexten dex ON dat.id = dex.id " +
+                    "WHERE DATE(dat.dateinsert) >'2025-01-01' AND dat.idload in (20250117) " +
                     " AND (dat.datelastcall > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) OR dat.datelastcall is null) " +
                     "ORDER BY dat.dateinsert DESC"; 
 
@@ -380,17 +382,25 @@ public class OcmService implements Serializable
 	        target.setEndResultDesc((String) row[i++]);
 	        target.setEndResultGroup((String) row[i++]);
 
-	        target.setNombre((String) row[i++]);
-	        target.setApellidos((String) row[i++]);
+	        target.setNombreContacto((String) row[i++]);
+	        target.setTelefonoContacto((String) row[i++]);
 	        target.setEmail((String) row[i++]);
+	        target.setNombreEmpresa((String) row[i++]);
+	        target.setActividad((String) row[i++]);
+	        target.setNempleados((String) row[i++]);
+	        target.setTelefonoEmpresa((String) row[i++]);
+	        target.setTrabajaEmpresaPrl((String) row[i++]);
+	        target.setEmpresaActualPrl((String) row[i++]);
+	        target.setEmpresaActualPrlFechaVto((String) row[i++]);
+	        target.setCp((String) row[i++]);
+	        target.setPoblacion((String) row[i++]);
+	        target.setProvincia((String) row[i++]);
 	        target.setObservaciones((String) row[i++]);
 
-	        target.setProvider((String) row[i++]);
-            target.setFullname((String) row[i++]);
-
+	        target.setCampaignProvider((String) row[i++]);
             target.setCampaignLeadId((String) row[i++]);
-            target.setCampaignAdsetName((String) row[i++]);
             target.setCampaignAdName((String) row[i++]);
+            target.setCampaignAdsetName((String) row[i++]);
             target.setCampaignName((String) row[i++]);
             target.setCampaignFormName((String) row[i++]);
             target.setCampaignPlatform((String) row[i++]);
