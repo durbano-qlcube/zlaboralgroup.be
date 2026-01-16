@@ -55,6 +55,7 @@ public class AcquisitionWs {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AcquisitionWs.class);
 	private SimpleDateFormat FORMAT_DATE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static Gson gson;
+	private static Gson gsonWithNulls;
 	
 	@Context
 	SecurityContext securityContext;
@@ -70,15 +71,40 @@ public class AcquisitionWs {
 	
 	private Gson initializesGson()
 	{
+		return initializeGson(false);
+	}
+
+	private Gson initializesGsonWithNulls()
+	{
+		return initializeGson(true);
+	}
+
+	private Gson initializeGson(boolean serializeNulls)
+	{
+		if (serializeNulls) {
+			if (gsonWithNulls == null) {
+				gsonWithNulls = buildGson(true);
+			}
+			return gsonWithNulls;
+		}
+
 		if (gson == null)
 		{
-			gson = new GsonBuilder()
-			.registerTypeAdapter(Calendar.class, new CalendarSerializer())
-			.registerTypeAdapter(Calendar.class, new CalendarDeserializer())
-			.registerTypeAdapter(GregorianCalendar.class,
-			new CalendarSerializer()).create();
+			gson = buildGson(false);
 		}
 		return gson;
+	}
+
+	private Gson buildGson(boolean serializeNulls)
+	{
+		GsonBuilder builder = new GsonBuilder()
+				.registerTypeAdapter(Calendar.class, new CalendarSerializer())
+				.registerTypeAdapter(Calendar.class, new CalendarDeserializer())
+				.registerTypeAdapter(GregorianCalendar.class, new CalendarSerializer());
+		if (serializeNulls) {
+			builder.serializeNulls();
+		}
+		return builder.create();
 	}
 
 	
@@ -345,7 +371,7 @@ public class AcquisitionWs {
 			LOGGER.info(TAG + "user:{} - Role: {}",user.getUsername(), user.getRole().toString());
 			AcquisitionVo result = acquisitionService.load(acquisitionVo.getIdAcquisition());
 
-			Gson gson = initializesGson();
+			Gson gson = initializesGsonWithNulls();
 			return Response.ok(gson.toJson(result),MediaType.APPLICATION_JSON).build();
 
 		}catch (IllegalArgumentException ex){
