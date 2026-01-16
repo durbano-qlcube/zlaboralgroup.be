@@ -100,7 +100,7 @@ public class GeneralReportService implements Serializable {
                 cerrados);
 
         asignarConteosPorMes(ejecutarConsulta(consultaCerrados,
-                crearParametros("year", year, "uuidProvider", uuidProvider, "status", StatusAcquisitionEnum.PROCESADO)),
+                crearParametros("year", year, "uuidProvider", uuidProvider, "status", StatusAcquisitionEnum.ABIERTO)),
                 abiertos);
 
         Map<String, BigDecimal> invalidacionPorMes = loadInvalidacionByMonth(year, uuidProvider);
@@ -293,7 +293,7 @@ public class GeneralReportService implements Serializable {
             }
 
             acumularConteosPorMes(ejecutarConsulta(consultaCerrados,
-                    crearParametros("year", year, "uuidProvider", uuidProvider, "status", StatusAcquisitionEnum.PROCESADO)),
+                    crearParametros("year", year, "uuidProvider", uuidProvider, "status", StatusAcquisitionEnum.ABIERTO)),
                     abiertos);
         }
 
@@ -428,7 +428,7 @@ public class GeneralReportService implements Serializable {
 
         acumularConteosPorFecha(ejecutarConsulta(consultaCerrados,
                 crearParametros("start", start, "end", end, "uuidProvider", uuidProvider, "status",
-                        StatusAcquisitionEnum.PROCESADO)), abiertos, formatoFecha);
+                        StatusAcquisitionEnum.ABIERTO)), abiertos, formatoFecha);
 
         List<Map<String, Object>> resultado = new ArrayList<>();
         int consecutivo = 1;
@@ -606,7 +606,7 @@ public class GeneralReportService implements Serializable {
 
             acumularConteosPorFecha(ejecutarConsulta(consultaCerrados,
                     crearParametros("start", start, "end", end, "uuidProvider", uuidProvider, "status",
-                            StatusAcquisitionEnum.PROCESADO)), abiertos, formatoFecha);
+                            StatusAcquisitionEnum.ABIERTO)), abiertos, formatoFecha);
         }
 
         List<Map<String, Object>> resultado = new ArrayList<>();

@@ -89,7 +89,7 @@ public class SincroZapCubeToOcmJob implements Serializable
 		
 		TAG = TAG +" >> sincroleads >>";
 		try {
-			List<AcquisitionVo> leads = acquisitionService.loadByStatus(StatusAcquisitionEnum.ENVIAR_OCM);
+			List<AcquisitionVo> leads = acquisitionService.loadByStatus(StatusAcquisitionEnum.ABIERTO);
 			
 			LOGGER.info(TAG + " loaded leads {} with status ENVIAR_OCM ......", leads.size());
 
@@ -104,7 +104,7 @@ public class SincroZapCubeToOcmJob implements Serializable
 						LOGGER.info(TAG + "{} >> Registered in OCM ......", lead.getTelefonoContacto());
 
 					
-						lead.setStatus(StatusAcquisitionEnum.PROCESADO);
+						lead.setStatus(StatusAcquisitionEnum.ABIERTO);
 						lead.setOcmMotor("01-CAPTURADOR LEADS CUBE");
 						acquisitionService.update(lead, false);
 						LOGGER.info(TAG + "{} >> Updated in Status PROCESADO ......", lead.getTelefonoContacto());

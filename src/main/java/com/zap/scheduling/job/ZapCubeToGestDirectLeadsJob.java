@@ -42,8 +42,7 @@ public class ZapCubeToGestDirectLeadsJob {
 		String TAG = "[ZapCubeToGestDirectLeadsJob - "+t+" doExecute]";
 		
         try {
-            List<StatusAcquisitionEnum> estados = Arrays.asList(StatusAcquisitionEnum.ENVIAR_OCM, StatusAcquisitionEnum.PROCESADO,
-                    StatusAcquisitionEnum.CODIFICADO, StatusAcquisitionEnum.ERROR);
+            List<StatusAcquisitionEnum> estados = Arrays.asList(StatusAcquisitionEnum.CODIFICADO, StatusAcquisitionEnum.ABIERTO);
 
   
             List<AcquisitionVo> entitiesInTramite = acquisitionService.loadGestdirectByStatus(estados);

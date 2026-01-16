@@ -168,18 +168,12 @@ public class GestDirectService implements Serializable
     private String toGestdirectStatusAcquisition(StatusAcquisitionEnum status, String ocmLastCoding)
     {
     	switch (status) {
-    		case ENVIAR_OCM:
-    			return "EN_EJECUCION"; 
-    		case PROCESADO:
-    			return "EN_EJECUCION"; 
     		case CODIFICADO:
     			if (ocmLastCoding != null && ocmLastCoding.contains("VENTA")) {
     				return "VENTA"; 
     			} else {
     				return "NO_VENTA";
     			}
-    		case ERROR:
-    			return "ERROR"; 
     		default:
     			return "ERROR"; 
     	}

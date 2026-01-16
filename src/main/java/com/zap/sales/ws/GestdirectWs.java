@@ -132,7 +132,7 @@ public class GestdirectWs {
 			}
 
 			if (acquisitionVo.getStatus()==null)
-				acquisitionVo.setStatus(StatusAcquisitionEnum.ENVIAR_OCM);
+				acquisitionVo.setStatus(StatusAcquisitionEnum.ABIERTO);
 
 			AcquisitionVo result = acquisitionService.create(acquisitionVo);
 

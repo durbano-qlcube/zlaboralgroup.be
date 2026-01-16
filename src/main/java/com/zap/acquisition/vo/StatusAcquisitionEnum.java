@@ -3,11 +3,9 @@ package com.zap.acquisition.vo;
 
 public enum StatusAcquisitionEnum implements java.io.Serializable
 {
-	ENVIAR_OCM,
-	REGISTRAR,
-	PROCESADO,
-	CODIFICADO,CERRADO,
-	ERROR,
+
+	CODIFICADO,
+	CERRADO,	
 	ABIERTO;
 
 	/// Se asignan estos estados ya que en el job:ZapCubeToGestDirectLeadsJob metodo: findAcquisitionByOriginId se necesita para devolver el estado, sino devuelve error
