@@ -24,7 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.zap.maintenance.service.adapter.CalendarDeserializer;
 import com.zap.maintenance.service.adapter.CalendarSerializer;
 import com.zap.scheduling.job.SincroZapCubeToOcmJob;
-import com.zap.scheduling.job.SincroOcmToZcubeJob;
+import com.zap.scheduling.job.SincroOcmToZlaboralJob;
 import com.zap.scheduling.job.ZapCubeToGestDirectLeadsJob;
 import com.zap.scheduling.job.ZapCubeToGestDirectVenta;
 import com.zap.scheduling.job.EmpresaCreditoUpdateJob;
@@ -45,7 +45,7 @@ public class JobWs {
 	SincroZapCubeToOcmJob sincroCapturadorToOcmJob;
 	
 	@Inject
-	SincroOcmToZcubeJob sincroOcmToCapJob;
+	SincroOcmToZlaboralJob sincroOcmToCapJob;
 	
     @Inject
     ZapCubeToGestDirectLeadsJob acquisitionTransferJob;

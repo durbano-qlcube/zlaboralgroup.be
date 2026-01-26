@@ -30,11 +30,11 @@ import com.zap.security.service.authenticate.AuthService;
 import com.zap.security.vo.authenticate.AuthUserVo;
 
 @Stateless
-public class SincroOcmToZcubeJob implements Serializable {
+public class SincroOcmToZlaboralJob implements Serializable {
 
 	private static final long serialVersionUID = 8723406388316414111L;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(SincroOcmToZcubeJob.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SincroOcmToZlaboralJob.class);
 	private static final String JOB_NAME = "SINCRO_OCM_TO_ZAP";
 	private static final String USERNAME = "JOB";
 	private String TAG = "";

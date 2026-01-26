@@ -47,7 +47,7 @@ import com.zap.security.service.authenticate.AuthService;
 import com.zap.security.vo.authenticate.AuthUserVo;
 import com.zap.security.vo.authenticate.UserProviderVo;
 import com.zap.security.vo.enumerates.RoleEnum;
-import com.zap.scheduling.job.SincroOcmToZcubeJob;
+import com.zap.scheduling.job.SincroOcmToZlaboralJob;
 
 @Path("/acquisition")
 public class AcquisitionWs {
@@ -67,7 +67,7 @@ public class AcquisitionWs {
 	AcquisitionService acquisitionService;
 	
     @Inject
-    SincroOcmToZcubeJob sincroOcmToZcubeJob;	
+    SincroOcmToZlaboralJob sincroOcmToZcubeJob;	
 	
 	private Gson initializesGson()
 	{
