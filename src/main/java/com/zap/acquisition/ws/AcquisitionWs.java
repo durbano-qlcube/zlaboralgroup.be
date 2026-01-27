@@ -404,11 +404,7 @@ public class AcquisitionWs {
                                 throw new IllegalArgumentException(TAG + " >> 'request' can not be null");
                         }
 
-                        if (!hasParentCompanyFilter(request)) {
-                                Gson gson = initializesGson();
-                                return Response.ok(gson.toJson(Collections.emptyList()), MediaType.APPLICATION_JSON).build();
-                        }
-
+                        
                         if (request.getFxInicio()!=null)
 			{
 				 Calendar fxVentaInitStartOfDay = this.setStartOfDay(request.getFxInicio());
@@ -505,19 +501,7 @@ public class AcquisitionWs {
                 }
         }
 
-        private boolean hasParentCompanyFilter(AcquisitionSearchRequestVo request) {
-                if (request == null) {
-                        return false;
-                }
-
-                if (request.getParentCompanyId() != null) {
-                        return true;
-                }
-
-                return request.getParentCompanyIds() != null
-                                && request.getParentCompanyIds().stream().anyMatch(Objects::nonNull);
-        }
-
+   
 
 	
 	@JWTTokenNeeded

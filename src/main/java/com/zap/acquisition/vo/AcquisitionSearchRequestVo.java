@@ -40,8 +40,6 @@ public class AcquisitionSearchRequestVo implements Serializable {
     private String uuidCaptador;
     private String status;
 
-    private Long parentCompanyId;
-    private List<Long> parentCompanyIds;
     private String uuidProvider;
     private String uuidSubProvider;
 }

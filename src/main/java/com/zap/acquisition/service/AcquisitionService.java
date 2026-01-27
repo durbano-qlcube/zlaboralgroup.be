@@ -317,20 +317,7 @@ public class AcquisitionService implements Serializable
 							cb.equal(acquisition.get("status"), StatusAcquisitionEnum.valueOf(request.getStatus())));
 				}
 
-                                List<Long> parentCompanyFilters = new ArrayList<>();
-                                if (request.getParentCompanyId() != null) {
-                                        parentCompanyFilters.add(request.getParentCompanyId());
-                                }
-                                if (request.getParentCompanyIds() != null) {
-                                        parentCompanyFilters.addAll(request.getParentCompanyIds());
-                                }
-
-                                parentCompanyFilters = parentCompanyFilters.stream().filter(Objects::nonNull).distinct()
-                                                .collect(Collectors.toList());
-
-                                if (!parentCompanyFilters.isEmpty()) {
-                                        predicates.add(acquisition.get("parentCompanyId").in(parentCompanyFilters));
-                                }
+                               
 
 				List<String> providerUuids = buildProviderFilter(request);
 				if (!providerUuids.isEmpty()) {
