@@ -322,8 +322,8 @@ public class OcmService implements Serializable
                     "dex.CAMPAIGN_PLATFORM, dex.CAMPAIGN_URL, dex.CAMPAIGN_PRODUCT " +
                     "FROM ocmdb.skill_laboral_lead_motor_data dat " +
                     "INNER JOIN ocmdb.skill_laboral_lead_motor_dataexten dex ON dat.id = dex.id " +
-                    "WHERE DATE(dat.dateinsert) >'2025-01-01' AND dat.idload in (20250117) " +
-                    " AND (dat.datelastcall > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) OR dat.datelastcall is null) " +
+                    "WHERE dat.idload in (20250117) " +
+//                    " AND (dat.datelastcall > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) OR dat.datelastcall is null) " +
                     "ORDER BY dat.dateinsert DESC"; 
 
 
