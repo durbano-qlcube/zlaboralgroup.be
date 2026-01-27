@@ -248,4 +248,7 @@ public class AcquisitionEntity implements Serializable {
 
     @Column(name = "OCM_ID", insertable = true, updatable = true)
     private Integer ocmId;
+    
+    @Column(name = "ID_LOAD", insertable = true, updatable = true)
+    private Integer idLoad;
 }

@@ -29,6 +29,7 @@ public class LeadsMotorVo {
     private Calendar dateNextcall;
 
     private Integer attempt;
+    private Integer idLoad;
     private String lastAgent;
     private String endResult;
     private String endResultDesc;

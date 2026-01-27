@@ -319,10 +319,10 @@ public class OcmService implements Serializable
                     "dex.TELEFONO_EMPRESA, dex.TRABAJA_EMPRESA_PRL, dex.EMPRESA_ACTUAL_PRL, dex.EMPRESA_ACTUAL_PRL_FECHA_VTO, " +
                     "dex.CP, dex.POBLACION, dex.PROVINCIA, dex.OBSERVACIONES, dex.CAMPAING_PROVIDER, dex.CAMPAING_LEAD_ID, " +
                     "dex.CAMPAING_AD_NAME, dex.CAMPAING_ADSET_NAME, dex.CAMPAIGN_NAME, dex.CAMPAIGN_FORM_NAME, " +
-                    "dex.CAMPAIGN_PLATFORM, dex.CAMPAIGN_URL, dex.CAMPAIGN_PRODUCT " +
+                    "dex.CAMPAIGN_PLATFORM, dex.CAMPAIGN_URL, dex.CAMPAIGN_PRODUCT, dat.idload " +
                     "FROM ocmdb.skill_laboral_lead_motor_data dat " +
                     "INNER JOIN ocmdb.skill_laboral_lead_motor_dataexten dex ON dat.id = dex.id " +
-                    "WHERE dat.idload in (20250117) " +
+                    "WHERE dat.idload in (862,861) " +
 //                    " AND (dat.datelastcall > DATE_SUB(CURDATE(), INTERVAL 1 MONTH) OR dat.datelastcall is null) " +
                     "ORDER BY dat.dateinsert DESC"; 
 
@@ -369,49 +369,56 @@ public class OcmService implements Serializable
 	        target.setIdOcm(row[i] != null ? ((Integer) row[i]).longValue() : null); i++;
 	        target.setStatus((Integer) row[i++]);
 	        target.setPriority((Integer) row[i++]);
-	        target.setNumber1((String) row[i++]);
-
+	        target.setNumber1(asString(row[i++]));
+	        
 	        target.setDateInsert(toCalendar((Timestamp) row[i++]));
 	        target.setDateFirstcall(toCalendar((Timestamp) row[i++]));
 	        target.setDateLastcall(toCalendar((Timestamp) row[i++]));
 	        target.setDateNextcall(toCalendar((Timestamp) row[i++]));
 
 	        target.setAttempt((Integer) row[i++]);
-	        target.setLastAgent((String) row[i++]);
-	        target.setEndResult((String) row[i++]);
-	        target.setEndResultDesc((String) row[i++]);
-	        target.setEndResultGroup((String) row[i++]);
+	        target.setLastAgent(asString(row[i++]));
+	        target.setEndResult(asString(row[i++]));
+	        target.setEndResultDesc(asString(row[i++]));
+	        target.setEndResultGroup(asString(row[i++]));
 
-	        target.setNombreContacto((String) row[i++]);
-	        target.setTelefonoContacto((String) row[i++]);
-	        target.setEmail((String) row[i++]);
-	        target.setNombreEmpresa((String) row[i++]);
-	        target.setActividad((String) row[i++]);
-	        target.setNempleados((String) row[i++]);
-	        target.setTelefonoEmpresa((String) row[i++]);
-	        target.setTrabajaEmpresaPrl((String) row[i++]);
-	        target.setEmpresaActualPrl((String) row[i++]);
-	        target.setEmpresaActualPrlFechaVto((String) row[i++]);
-	        target.setCp((String) row[i++]);
-	        target.setPoblacion((String) row[i++]);
-	        target.setProvincia((String) row[i++]);
-	        target.setObservaciones((String) row[i++]);
+	        target.setNombreContacto(asString(row[i++]));
+	        target.setTelefonoContacto(asString(row[i++]));
+	        target.setEmail(asString(row[i++]));
+	        target.setNombreEmpresa(asString(row[i++]));
+	        target.setActividad(asString(row[i++]));
+	        target.setNempleados(asString(row[i++]));
+	        target.setTelefonoEmpresa(asString(row[i++]));
+	        target.setTrabajaEmpresaPrl(asString(row[i++]));
+	        target.setEmpresaActualPrl(asString(row[i++]));
+	        target.setEmpresaActualPrlFechaVto(asString(row[i++]));
+	        target.setCp(asString(row[i++]));
+	        target.setPoblacion(asString(row[i++]));
+	        target.setProvincia(asString(row[i++]));
+	        target.setObservaciones(asString(row[i++]));
 
-	        target.setCampaignProvider((String) row[i++]);
-            target.setCampaignLeadId((String) row[i++]);
-            target.setCampaignAdName((String) row[i++]);
-            target.setCampaignAdsetName((String) row[i++]);
-            target.setCampaignName((String) row[i++]);
-            target.setCampaignFormName((String) row[i++]);
-            target.setCampaignPlatform((String) row[i++]);
-            target.setCampaignUrl((String) row[i++]);
-            target.setCampaignProduct((String) row[i++]);
+	        target.setCampaignProvider(asString(row[i++]));
+            target.setCampaignLeadId(asString(row[i++]));
+            target.setCampaignAdName(asString(row[i++]));
+            target.setCampaignAdsetName(asString(row[i++]));
+            target.setCampaignName(asString(row[i++]));
+            target.setCampaignFormName(asString(row[i++]));
+            target.setCampaignPlatform(asString(row[i++]));
+            target.setCampaignUrl(asString(row[i++]));
+            target.setCampaignProduct(asString(row[i++]));
+	        target.setIdLoad((Integer) row[i++]);
+
 
 	        results.add(target);
 	    }
 
 	    return results;
 	}
+	
+	private String asString(Object value) {
+	    return value == null ? null : value.toString();
+	}
+
 
 
 	

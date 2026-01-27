@@ -160,6 +160,7 @@ public class SincroOcmToZlaboralJob implements Serializable {
 								existing.setDateFirstcall(ocm.getDateFirstcall());
 								existing.setDateLastcall(ocm.getDateLastcall());
 								existing.setDateNextcall(ocm.getDateNextcall());
+								existing.setDateInsert(ocm.getDateInsert());
 								existing.setOcmEndResult(ocm.getEndResult());
 								existing.setCampaignProvider(ocm.getCampaignProvider());
 								if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
@@ -176,6 +177,7 @@ public class SincroOcmToZlaboralJob implements Serializable {
 								existing.setCampaignPlatform(ocm.getCampaignPlatform());
 								existing.setCampaignUrl(ocm.getCampaignUrl());
 								existing.setCampaignProduct(ocm.getCampaignProduct());
+								existing.setIdLoad(ocm.getIdLoad());
 
 								acquisitionService.update(existing, false);
 								LOGGER.info("{} - UPDATED MSISDN: {}", TAG, ocm.getNumber1());
@@ -240,21 +242,31 @@ public class SincroOcmToZlaboralJob implements Serializable {
 		nuevo.setCampaignPlatform(ocm.getCampaignPlatform());
 		nuevo.setCampaignUrl(ocm.getCampaignUrl());
 		nuevo.setCampaignProduct(ocm.getCampaignProduct());
+		nuevo.setIdLoad(ocm.getIdLoad());
 
-		if (ocm.getProvider() != null) {
-			AuthUserVo authUserVo = authService.loadByUsername(ocm.getProvider().toUpperCase());
-			if (authUserVo != null) {
+		if (ocm != null && ocm.getCampaignProvider() != null && !ocm.getCampaignProvider().trim().isEmpty()) {
 
-				nuevo.setParentCompanyId(authUserVo.getParentCompanyId());
-				nuevo.setUuidProvider(authUserVo.getUuid());
-				nuevo.setAgenteUuid(authUserVo.getUuid());
-				nuevo.setCoordinadorUserName(authUserVo.getCordinadorUsername());
-				nuevo.setCoordinadorUuid(authUserVo.getUuidCordinador());
-				acquisitionService.create(nuevo);
-			} else {
-				LOGGER.warn("{} - AuthUserVo is null for CMP_PROVIDER: {}", TAG, ocm.getProvider());
-			}
+		    String provider = ocm.getCampaignProvider().trim().toUpperCase();
+
+		    AuthUserVo authUserVo = authService.loadByUsername(provider);
+
+		    if (authUserVo != null) {
+
+		        nuevo.setUuidProvider(authUserVo.getUuid());
+		        nuevo.setAgenteUuid(authUserVo.getUuid());
+		        nuevo.setCoordinadorUserName(authUserVo.getCordinadorUsername());
+		        nuevo.setCoordinadorUuid(authUserVo.getUuidCordinador());
+
+		        acquisitionService.create(nuevo);
+
+		    } else {
+		        LOGGER.warn("{} - AuthUserVo is null for CMP_PROVIDER: {}", TAG, provider);
+		    }
+
+		} else {
+		    LOGGER.warn("{} - campaignProvider is null or empty", TAG);
 		}
+
 
 		LOGGER.info("{} - CREATED REGISTER CMP_PROVIDER:{} MSISDN: {}", TAG, ocm.getCampaignProvider(),
 				ocm.getNumber1());

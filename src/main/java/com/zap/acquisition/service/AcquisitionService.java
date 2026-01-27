@@ -710,6 +710,9 @@ public class AcquisitionService implements Serializable
 
 		if (copyIfNull || source.getUsernameCaptador() != null)
 			target.setUsernameCaptador(source.getUsernameCaptador());
+		
+		if (copyIfNull || source.getIdLoad() != null)
+			target.setIdLoad(source.getIdLoad());
 	}
 
 	private AcquisitionVo toAcquisitionVo(AcquisitionEntity source) {
@@ -763,6 +766,7 @@ public class AcquisitionService implements Serializable
 
 		target.setUuidProvider(source.getUuidProvider());
 		target.setUsernameCaptador(source.getUsernameCaptador());
+		target.setIdLoad(source.getIdLoad());
 
 		return target;
 	}
@@ -817,6 +821,7 @@ public class AcquisitionService implements Serializable
 
 		target.setUuidProvider(source.getUuidProvider());
 		target.setUsernameCaptador(source.getUsernameCaptador());
+		target.setIdLoad(source.getIdLoad());
 
 		return target;
 	}

@@ -53,6 +53,9 @@ public class AcquisitionVo implements Serializable {
 
     @XmlJavaTypeAdapter(TimeDateAdapter.class)
     private Calendar dateNextcall;
+    
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar dateInsert;
 
     private StatusAcquisitionEnum status;
     private Long parentCompanyId;
@@ -82,4 +85,6 @@ public class AcquisitionVo implements Serializable {
     private String uuidProvider;
 
     private String usernameCaptador;
+    private Integer idLoad;
+
 }
