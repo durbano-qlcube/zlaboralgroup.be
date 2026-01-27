@@ -275,7 +275,8 @@ public class AcquisitionService implements Serializable
                                         acquisition.get("ocmLastCoding"), acquisition.get("ocmLastAgent"),
                                         acquisition.get("usernameCaptador"), acquisition.get("status"),
                                         acquisition.get("fxCreation"), acquisition.get("fxModification"),
-                                        acquisition.get("dateLastcall"), acquisition.get("uuidProvider"),
+                                        acquisition.get("dateFirstcall"), acquisition.get("dateLastcall"),
+                                        acquisition.get("uuidProvider"),
                                         cb.nullLiteral(String.class)));
 
 			List<Predicate> predicates = new ArrayList<>();
