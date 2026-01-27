@@ -44,10 +44,18 @@ public class AcquisitionSearchResponseVo implements Serializable {
     @XmlJavaTypeAdapter(TimeDateAdapter.class)
     private Calendar fxModification;
 
+    @SerializedName("DateInsert")
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar dateInsert;
+
+    @SerializedName("DateLastcall")
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar dateLastcall;
+
     public AcquisitionSearchResponseVo(Integer idAcquisition, String nombreContacto, String telefonoContacto,
             String emailContacto, String nombreEmpresa, String ocmLastCoding, String ocmLastAgent,
             String usernameCaptador, StatusAcquisitionEnum status, Calendar fxCreation, Calendar fxModification,
-            String uuidProvider, String providerName) {
+            Calendar dateLastcall, String uuidProvider, String providerName) {
         super();
         this.idAcquisition = idAcquisition;
         this.nombreContacto = nombreContacto;
@@ -60,6 +68,8 @@ public class AcquisitionSearchResponseVo implements Serializable {
         this.status = status;
         this.fxCreation = fxCreation;
         this.fxModification = fxModification;
+        this.dateInsert = fxCreation;
+        this.dateLastcall = dateLastcall;
         this.uuidProvider = uuidProvider;
         this.providerName = providerName;
     }
