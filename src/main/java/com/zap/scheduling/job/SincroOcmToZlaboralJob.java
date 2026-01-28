@@ -104,8 +104,9 @@ public class SincroOcmToZlaboralJob implements Serializable {
 
 							String telefonoContacto = StringUtils.defaultIfBlank(ocm.getTelefonoContacto(),
 									ocm.getNumber1());
-							boolean statusChanged = existing.getStatus() == null
-									|| !existing.getStatus().toString().equals(statusOCM.toString());
+							boolean canUpdateStatus = !StatusAcquisitionEnum.CODIFICADO.equals(existing.getStatus());
+							boolean statusChanged = canUpdateStatus && (existing.getStatus() == null
+									|| !existing.getStatus().toString().equals(statusOCM.toString()));
 							boolean shouldUpdate = statusChanged
 									|| !StringUtils.equalsIgnoreCase(ocm.getEndResultDesc(),
 											existing.getOcmLastCoding())
@@ -163,10 +164,12 @@ public class SincroOcmToZlaboralJob implements Serializable {
 								existing.setDateInsert(ocm.getDateInsert());
 								existing.setOcmEndResult(ocm.getEndResult());
 								existing.setCampaignProvider(ocm.getCampaignProvider());
-								if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
-									existing.setStatus(StatusAcquisitionEnum.CERRADO);
-								} else {
-									existing.setStatus(StatusAcquisitionEnum.ABIERTO);
+								if (canUpdateStatus) {
+									if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
+										existing.setStatus(StatusAcquisitionEnum.CERRADO);
+									} else {
+										existing.setStatus(StatusAcquisitionEnum.ABIERTO);
+									}
 								}
 
 								existing.setCampaignLeadId(ocm.getCampaignLeadId());
