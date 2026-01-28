@@ -23,6 +23,7 @@ import lombok.Data;
 @NamedQueries({
         @NamedQuery(name = "AcquisitionEntity.loadAll", query = "SELECT m FROM AcquisitionEntity m order by m.fxCreation,m.idAcquisition desc"),
         @NamedQuery(name = "AcquisitionEntity.loadByStatus", query = "SELECT m FROM AcquisitionEntity m where m.status=:status order by m.fxCreation,m.idAcquisition desc"),
+        @NamedQuery(name = "AcquisitionEntity.loadByStatusAndEmailStatus", query = "SELECT m FROM AcquisitionEntity m where m.status=:status and m.estadoEnvioCorreo=:estadoEnvioCorreo order by m.fxCreation,m.idAcquisition desc"),
         @NamedQuery(name = "AcquisitionEntity.loadByStatus2", query = "SELECT m FROM AcquisitionEntity m WHERE m.status IN :statuses  ORDER BY m.fxCreation,m.idAcquisition DESC "),
         @NamedQuery(name = "AcquisitionEntity.findByPhone", query = "SELECT m FROM AcquisitionEntity m WHERE m.telefonoContacto = :phone"),
         @NamedQuery(name = "AcquisitionEntity.loadGestdirectByStatus", query = "SELECT m FROM AcquisitionEntity m WHERE m.status IN :statuses AND COALESCE(m.fxModification, m.fxCreation) >= :limitDate ORDER BY m.fxCreation,m.idAcquisition DESC "),
