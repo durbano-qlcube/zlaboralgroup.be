@@ -347,7 +347,20 @@ public class AcquisitionService implements Serializable
 							cb.equal(acquisition.get("status"), StatusAcquisitionEnum.valueOf(request.getStatus())));
 				}
 
-                               
+				if (request.getFxEnvioCorreoInit() != null) {
+					predicates.add(cb.greaterThanOrEqualTo(acquisition.get("fechaEnvioCorreo"),
+							request.getFxEnvioCorreoInit()));
+				}
+
+				if (request.getFxEnvioCorreoFin() != null) {
+					predicates.add(cb.lessThanOrEqualTo(acquisition.get("fechaEnvioCorreo"),
+							request.getFxEnvioCorreoFin()));
+				}
+
+				if (!StringUtils.isBlank(request.getEstadoEnvioCorreo())) {
+					predicates.add(cb.equal(acquisition.get("estadoEnvioCorreo"),
+							EstadoEnvioCorreoEnum.valueOf(request.getEstadoEnvioCorreo())));
+				}
 
 				List<String> providerUuids = buildProviderFilter(request);
 				if (!providerUuids.isEmpty()) {
