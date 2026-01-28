@@ -29,6 +29,7 @@ import com.zap.scheduling.job.ZapCubeToGestDirectLeadsJob;
 import com.zap.scheduling.job.ZapCubeToGestDirectVenta;
 import com.zap.scheduling.job.EmpresaCreditoUpdateJob;
 import com.zap.scheduling.job.OrgVentaToMongoJob;
+import com.zap.scheduling.job.SendCodifiedLeadsEmailJob;
 
 @Path("/caller")
 public class JobWs {
@@ -58,6 +59,9 @@ public class JobWs {
     	
 	@Inject
 	OrgVentaToMongoJob orgventatomongojob;
+
+	@Inject
+	SendCodifiedLeadsEmailJob sendCodifiedLeadsEmailJob;
 	
 	private Gson initializesGson()
 	{
@@ -141,6 +145,28 @@ public class JobWs {
 
 		}catch (Exception ex) {
 			LOGGER.error(TAG + " - Error: {}",ex.getLocalizedMessage());
+			return Response.serverError().status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@GZIP
+	@GET
+	@Path("/sendCodifiedLeadsEmailJob")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response sendCodifiedLeadsEmailJob() {
+		String TAG = "[CallerWs - sendCodifiedLeadsEmailJob]";
+		try {
+			sendCodifiedLeadsEmailJob.doExecute();
+
+			initializesGson();
+			return Response.ok(MediaType.APPLICATION_JSON).build();
+
+		} catch (IllegalArgumentException ex) {
+			LOGGER.error(TAG + " - Error: {}", ex.getLocalizedMessage());
+			return Response.serverError().status(Status.BAD_REQUEST).build();
+
+		} catch (Exception ex) {
+			LOGGER.error(TAG + " - Error: {}", ex.getLocalizedMessage());
 			return Response.serverError().status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
