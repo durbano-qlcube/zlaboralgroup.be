@@ -33,6 +33,8 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private static final String JOB_NAME = "SEND_CODIFIED_LEADS_EMAIL";
 	private static final String USERNAME = "JOB";
 	private static final String TARGET_EMAIL = "emanuel97gus@gmal.com";
+	private static final String EMAIL_STATUS_PENDING = "PENDIENTE";
+	private static final String EMAIL_STATUS_SENT = "ENVIADO";
 	private String TAG = "";
 	private static Boolean hasToExecuteJob = false;
 	private Long idJobActivity = 0L;
@@ -84,12 +86,15 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 			if (leads != null && !leads.isEmpty()) {
 				for (AcquisitionVo lead : leads) {
 					try {
+						ensurePendingEmailStatus(lead);
+
 						EmailVo emailVo = new EmailVo();
 						emailVo.setTo(TARGET_EMAIL);
 						emailVo.setSubject("Lead CODIFICADO: " + safeValue(lead.getNombreEmpresa()));
 						emailVo.setBody(buildLeadEmailBody(lead));
 
 						emailService.sendEmailHtml(emailVo);
+						markEmailSent(lead);
 						LOGGER.info("{} - Email sent for lead id:{}", jobTag, lead.getIdAcquisition());
 					} catch (Exception e) {
 						LOGGER.error("{} - Error sending email for lead id:{} - {}", jobTag,
@@ -100,6 +105,33 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 
 		} catch (Exception e) {
 			LOGGER.error("{} - Error en sendCodifiedLeads(): {}", tag, e.getMessage(), e);
+		}
+	}
+
+	private void ensurePendingEmailStatus(AcquisitionVo lead) {
+		if (lead == null || EMAIL_STATUS_SENT.equals(lead.getEstadoEnvioCorreo())) {
+			return;
+		}
+		lead.setEstadoEnvioCorreo(EMAIL_STATUS_PENDING);
+		lead.setFechaEnvioCorreo(null);
+		updateLeadEmailStatus(lead);
+	}
+
+	private void markEmailSent(AcquisitionVo lead) {
+		if (lead == null) {
+			return;
+		}
+		lead.setEstadoEnvioCorreo(EMAIL_STATUS_SENT);
+		lead.setFechaEnvioCorreo(Calendar.getInstance());
+		updateLeadEmailStatus(lead);
+	}
+
+	private void updateLeadEmailStatus(AcquisitionVo lead) {
+		try {
+			acquisitionService.update(lead, false);
+		} catch (Exception e) {
+			LOGGER.error("{} - Error updating email status for lead id:{} - {}", TAG, lead.getIdAcquisition(),
+					e.getMessage(), e);
 		}
 	}
 

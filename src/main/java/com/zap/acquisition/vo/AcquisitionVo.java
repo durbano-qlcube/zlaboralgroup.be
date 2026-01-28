@@ -58,6 +58,10 @@ public class AcquisitionVo implements Serializable {
     private Calendar dateInsert;
 
     private StatusAcquisitionEnum status;
+    private String estadoEnvioCorreo;
+
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fechaEnvioCorreo;
     private Long parentCompanyId;
 
     @XmlJavaTypeAdapter(TimeDateAdapter.class)
