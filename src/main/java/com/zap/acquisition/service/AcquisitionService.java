@@ -37,6 +37,7 @@ import com.zap.acquisition.exception.AdquisitionDuplicatePhoneException;
 import com.zap.acquisition.vo.AcquisitionSearchRequestVo;
 import com.zap.acquisition.vo.AcquisitionSearchResponseVo;
 import com.zap.acquisition.vo.AcquisitionVo;
+import com.zap.acquisition.vo.EstadoEnvioCorreoEnum;
 import com.zap.acquisition.vo.StatusAcquisitionEnum;
 import com.zap.sales.exception.venta.VentaServiceException;
 import com.zap.security.service.authenticate.AuthService;
@@ -72,6 +73,9 @@ public class AcquisitionService implements Serializable
 		try {
 
 			AcquisitionEntity entity = toAcquisitionEntity(acquisitionVo);
+			if (entity.getEstadoEnvioCorreo() == null) {
+				entity.setEstadoEnvioCorreo(EstadoEnvioCorreoEnum.PENDIENTE);
+			}
 			entity.setFxCreation(Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid")));
 			em.persist(entity);
 			return toAcquisitionVo(entity);
@@ -274,6 +278,7 @@ public class AcquisitionService implements Serializable
                                         acquisition.get("emailContacto"), acquisition.get("nombreEmpresa"),
                                         acquisition.get("ocmLastCoding"), acquisition.get("ocmLastAgent"),
                                         acquisition.get("usernameCaptador"), acquisition.get("status"),
+                                        acquisition.get("estadoEnvioCorreo"), acquisition.get("fechaEnvioCorreo"),
                                         acquisition.get("fxCreation"), acquisition.get("fxModification"),
                                         acquisition.get("dateFirstcall"), acquisition.get("dateLastcall"),
                                         acquisition.get("uuidProvider"),

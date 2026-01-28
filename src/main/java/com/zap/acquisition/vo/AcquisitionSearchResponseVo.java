@@ -38,6 +38,11 @@ public class AcquisitionSearchResponseVo implements Serializable {
 
     private StatusAcquisitionEnum status;
 
+    private EstadoEnvioCorreoEnum estadoEnvioCorreo;
+
+    @XmlJavaTypeAdapter(TimeDateAdapter.class)
+    private Calendar fechaEnvioCorreo;
+
     @XmlJavaTypeAdapter(TimeDateAdapter.class)
     private Calendar fxCreation;
 
@@ -58,8 +63,9 @@ public class AcquisitionSearchResponseVo implements Serializable {
 
     public AcquisitionSearchResponseVo(Integer idAcquisition, String nombreContacto, String telefonoContacto,
             String emailContacto, String nombreEmpresa, String ocmLastCoding, String ocmLastAgent,
-            String usernameCaptador, StatusAcquisitionEnum status, Calendar fxCreation, Calendar fxModification,
-            Calendar dateFirstcall, Calendar dateLastcall, String uuidProvider, String providerName) {
+            String usernameCaptador, StatusAcquisitionEnum status, EstadoEnvioCorreoEnum estadoEnvioCorreo,
+            Calendar fechaEnvioCorreo, Calendar fxCreation, Calendar fxModification, Calendar dateFirstcall,
+            Calendar dateLastcall, String uuidProvider, String providerName) {
         super();
         this.idAcquisition = idAcquisition;
         this.nombreContacto = nombreContacto;
@@ -70,6 +76,8 @@ public class AcquisitionSearchResponseVo implements Serializable {
         this.ocmLastAgent = ocmLastAgent;
         this.usernameCaptador = usernameCaptador;
         this.status = status;
+        this.estadoEnvioCorreo = estadoEnvioCorreo;
+        this.fechaEnvioCorreo = fechaEnvioCorreo;
         this.fxCreation = fxCreation;
         this.fxModification = fxModification;
         this.dateInsert = fxCreation;
