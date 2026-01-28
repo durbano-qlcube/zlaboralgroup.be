@@ -33,7 +33,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SendCodifiedLeadsEmailJob.class);
 	private static final String JOB_NAME = "SEND_CODIFIED_LEADS_EMAIL";
 	private static final String USERNAME = "JOB";
-	private static final String TARGET_EMAIL = "emanuel97gus@gmal.com";
+	private static final String TARGET_EMAIL = "emanuel97gus@gmail.com";
 	private String TAG = "";
 	private static Boolean hasToExecuteJob = false;
 	private Long idJobActivity = 0L;

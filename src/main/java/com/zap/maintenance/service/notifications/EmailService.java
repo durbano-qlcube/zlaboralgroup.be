@@ -273,7 +273,7 @@ public class EmailService  implements Serializable {
 	}
 	
 	
-	@Asynchronous
+//	@Asynchronous
 	public void sendEmailHtml (EmailVo emailVo)
 	{
 		log.info("[EmailService - sendEmailPlainTex] - Init");
