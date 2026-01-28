@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.zap.acquisition.vo.EstadoEnvioCorreoEnum;
 import com.zap.acquisition.vo.StatusAcquisitionEnum;
 
 import lombok.Data;
@@ -220,7 +221,8 @@ public class AcquisitionEntity implements Serializable {
     private StatusAcquisitionEnum status;
 
     @Column(name = "ESTADO_ENVIO_CORREO", insertable = true, updatable = true, length = 25)
-    private String estadoEnvioCorreo;
+    @javax.persistence.Enumerated(javax.persistence.EnumType.STRING)
+    private EstadoEnvioCorreoEnum estadoEnvioCorreo;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ENVIO_CORREO", unique = false, nullable = true, insertable = true, updatable = true)

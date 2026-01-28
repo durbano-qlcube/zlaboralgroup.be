@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.zap.acquisition.service.AcquisitionService;
 import com.zap.acquisition.vo.AcquisitionVo;
+import com.zap.acquisition.vo.EstadoEnvioCorreoEnum;
 import com.zap.acquisition.vo.StatusAcquisitionEnum;
 import com.zap.maintenance.service.notifications.EmailService;
 import com.zap.maintenance.vo.notifications.EmailVo;
@@ -33,8 +34,6 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private static final String JOB_NAME = "SEND_CODIFIED_LEADS_EMAIL";
 	private static final String USERNAME = "JOB";
 	private static final String TARGET_EMAIL = "emanuel97gus@gmal.com";
-	private static final String EMAIL_STATUS_PENDING = "PENDIENTE";
-	private static final String EMAIL_STATUS_SENT = "ENVIADO";
 	private String TAG = "";
 	private static Boolean hasToExecuteJob = false;
 	private Long idJobActivity = 0L;
@@ -109,10 +108,10 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	}
 
 	private void ensurePendingEmailStatus(AcquisitionVo lead) {
-		if (lead == null || EMAIL_STATUS_SENT.equals(lead.getEstadoEnvioCorreo())) {
+		if (lead == null || EstadoEnvioCorreoEnum.ENVIADO.equals(lead.getEstadoEnvioCorreo())) {
 			return;
 		}
-		lead.setEstadoEnvioCorreo(EMAIL_STATUS_PENDING);
+		lead.setEstadoEnvioCorreo(EstadoEnvioCorreoEnum.PENDIENTE);
 		lead.setFechaEnvioCorreo(null);
 		updateLeadEmailStatus(lead);
 	}
@@ -121,7 +120,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 		if (lead == null) {
 			return;
 		}
-		lead.setEstadoEnvioCorreo(EMAIL_STATUS_SENT);
+		lead.setEstadoEnvioCorreo(EstadoEnvioCorreoEnum.ENVIADO);
 		lead.setFechaEnvioCorreo(Calendar.getInstance());
 		updateLeadEmailStatus(lead);
 	}
