@@ -264,6 +264,31 @@ public class AcquisitionService implements Serializable
 		}
 	}
 
+	public List<AcquisitionVo> loadByStatusAndEmailStatus(StatusAcquisitionEnum status,
+			EstadoEnvioCorreoEnum estadoEnvioCorreo) {
+		String TAG = "[AcquisitionService - loadByStatusAndEmailStatus status:" + status.toString()
+				+ " estadoEnvioCorreo:" + estadoEnvioCorreo + "]";
+
+		try {
+			Query query = em.createNamedQuery("AcquisitionEntity.loadByStatusAndEmailStatus");
+			query.setParameter("status", status);
+			query.setParameter("estadoEnvioCorreo", estadoEnvioCorreo);
+
+			List<AcquisitionEntity> entityList = (List<AcquisitionEntity>) query.getResultList();
+
+			return Optional.ofNullable(entityList).orElseGet(Collections::emptyList).stream()
+					.map(element -> this.toAcquisitionVo(element)).collect(Collectors.toList());
+
+		} catch (javax.persistence.NoResultException ex) {
+			return new ArrayList<>();
+
+		} catch (Exception ex) {
+			LOGGER.error(TAG + " - Error:{} ", ex.getMessage());
+			throw new AcquisitionServiceException(ex);
+
+		}
+	}
+
 	public List<AcquisitionSearchResponseVo> search(AcquisitionSearchRequestVo request, AuthUserVo user) {
 		String TAG = "[AcquisitionService - search]";
 

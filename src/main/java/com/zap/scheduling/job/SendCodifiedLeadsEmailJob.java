@@ -78,7 +78,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private void sendCodifiedLeads(String tag) {
 		try {
 			String jobTag = tag + " >> sendCodifiedLeads >>";
-			List<AcquisitionVo> leads = acquisitionService.loadByStatus(StatusAcquisitionEnum.CODIFICADO);
+			List<AcquisitionVo> leads = loadCodifiedPendingLeads();
 
 			LOGGER.info(jobTag + " loaded leads {} with status CODIFICADO...", leads.size());
 
@@ -105,6 +105,11 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 		} catch (Exception e) {
 			LOGGER.error("{} - Error en sendCodifiedLeads(): {}", tag, e.getMessage(), e);
 		}
+	}
+
+	private List<AcquisitionVo> loadCodifiedPendingLeads() {
+		return acquisitionService.loadByStatusAndEmailStatus(StatusAcquisitionEnum.CODIFICADO,
+				EstadoEnvioCorreoEnum.PENDIENTE);
 	}
 
 	private void ensurePendingEmailStatus(AcquisitionVo lead) {
