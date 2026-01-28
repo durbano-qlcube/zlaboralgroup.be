@@ -219,6 +219,13 @@ public class AcquisitionEntity implements Serializable {
     @javax.persistence.Enumerated(javax.persistence.EnumType.STRING)
     private StatusAcquisitionEnum status;
 
+    @Column(name = "ESTADO_ENVIO_CORREO", insertable = true, updatable = true, length = 25)
+    private String estadoEnvioCorreo;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "FECHA_ENVIO_CORREO", unique = false, nullable = true, insertable = true, updatable = true)
+    private Calendar fechaEnvioCorreo;
+
     @Column(name = "USERNAME_CAPTADOR", insertable = true, updatable = true, length = 100)
     private String usernameCaptador;
 

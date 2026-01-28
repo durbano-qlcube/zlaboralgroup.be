@@ -646,6 +646,10 @@ public class AcquisitionService implements Serializable
 
 		if (copyIfNull || source.getStatus() != null)
 			target.setStatus(source.getStatus());
+		if (copyIfNull || source.getEstadoEnvioCorreo() != null)
+			target.setEstadoEnvioCorreo(source.getEstadoEnvioCorreo());
+		if (copyIfNull || source.getFechaEnvioCorreo() != null)
+			target.setFechaEnvioCorreo(source.getFechaEnvioCorreo());
 		if (copyIfNull || source.getParentCompanyId() != null)
 			target.setParentCompanyId(source.getParentCompanyId());
 
@@ -735,6 +739,8 @@ public class AcquisitionService implements Serializable
 		target.setDateLastcall(source.getDateLastcall());
 		target.setDateNextcall(source.getDateNextcall());
 		target.setStatus(source.getStatus());
+		target.setEstadoEnvioCorreo(source.getEstadoEnvioCorreo());
+		target.setFechaEnvioCorreo(source.getFechaEnvioCorreo());
 		target.setParentCompanyId(source.getParentCompanyId());
 		target.setFxScheduling(source.getFxScheduling());
 		target.setFxCreation(source.getFxCreation());
@@ -790,6 +796,8 @@ public class AcquisitionService implements Serializable
 		target.setDateLastcall(source.getDateLastcall());
 		target.setDateNextcall(source.getDateNextcall());
 		target.setStatus(source.getStatus());
+		target.setEstadoEnvioCorreo(source.getEstadoEnvioCorreo());
+		target.setFechaEnvioCorreo(source.getFechaEnvioCorreo());
 		target.setParentCompanyId(source.getParentCompanyId());
 		target.setFxScheduling(source.getFxScheduling());
 		target.setFxCreation(source.getFxCreation());
