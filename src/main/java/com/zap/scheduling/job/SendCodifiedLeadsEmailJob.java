@@ -144,7 +144,6 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 		body.append("<html><body>");
 		body.append("<h2>Lead CODIFICADO</h2>");
 		body.append("<table border=\"1\" cellpadding=\"6\" cellspacing=\"0\">");
-		appendRow(body, "ID", safeValue(lead.getIdAcquisition()));
 		appendRow(body, "Nombre contacto", safeValue(lead.getNombreContacto()));
 		appendRow(body, "Teléfono contacto", safeValue(lead.getTelefonoContacto()));
 		appendRow(body, "Email contacto", safeValue(lead.getEmailContacto()));
@@ -155,19 +154,6 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 		appendRow(body, "Provincia", safeValue(lead.getProvincia()));
 		appendRow(body, "Población", safeValue(lead.getPoblacion()));
 		appendRow(body, "CP", safeValue(lead.getCp()));
-		appendRow(body, "Observaciones", safeValue(lead.getObservaciones()));
-		appendRow(body, "Último coding", safeValue(lead.getOcmLastCoding()));
-		appendRow(body, "Último agente", safeValue(lead.getOcmLastAgent()));
-		appendRow(body, "Resultado OCM", safeValue(lead.getOcmEndResult()));
-		appendRow(body, "Campaña", safeValue(lead.getCampaignName()));
-		appendRow(body, "Proveedor campaña", safeValue(lead.getCampaignProvider()));
-		appendRow(body, "ID lead campaña", safeValue(lead.getCampaignLeadId()));
-		appendRow(body, "Adset", safeValue(lead.getCampaignAdsetName()));
-		appendRow(body, "Ad", safeValue(lead.getCampaignAdName()));
-		appendRow(body, "Formulario", safeValue(lead.getCampaignFormName()));
-		appendRow(body, "Plataforma", safeValue(lead.getCampaignPlatform()));
-		appendRow(body, "URL campaña", safeValue(lead.getCampaignUrl()));
-		appendRow(body, "Producto campaña", safeValue(lead.getCampaignProduct()));
 		body.append("</table>");
 		body.append("</body></html>");
 		return body.toString();
