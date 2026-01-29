@@ -304,7 +304,8 @@ public class EmailService  implements Serializable {
 			props.setProperty("mail.smtp.port", EMAIL_SETTINGS_VO.getPort());
 			props.setProperty("mail.smtp.user", user);
 			props.setProperty("mail.smtp.auth", EMAIL_SETTINGS_VO.getAuthIsNeeds()); 
-			
+			props.setProperty("mail.smtp.ssl.enable", "true"); 
+
 			
 			//Iniciando Session
 			Authenticator auth = new SMTPAuthenticator(user, pass);
