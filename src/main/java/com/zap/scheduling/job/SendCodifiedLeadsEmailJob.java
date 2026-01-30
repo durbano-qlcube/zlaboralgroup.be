@@ -33,8 +33,9 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SendCodifiedLeadsEmailJob.class);
 	private static final String JOB_NAME = "SEND_CODIFIED_LEADS_EMAIL";
 	private static final String USERNAME = "JOB";
-	private static final String TARGET_EMAIL = "emanuel97gus@gmail.com";
 	private static final String EMAIL_SUBJECT_PREFIX = "AVANLEAD LEAD --- ";
+	private static final String TARGET_EMAIL = "dugt13@gmail.com";
+
 	private String TAG = "";
 	private static Boolean hasToExecuteJob = false;
 	private Long idJobActivity = 0L;
@@ -53,8 +54,9 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 		hasToExecuteJob = true; // settingsService.hasToExecuteJob();
 	}
 
-	@TransactionAttribute(TransactionAttributeType.NEVER)
-//	@Schedule(hour = "*", minute = "*/10", second = "0", persistent = false)
+
+    @Schedule(hour = "*", minute = "*/2", second = "30", persistent = false)
+    @TransactionAttribute(TransactionAttributeType.NEVER)
 	public void doExecute() {
 		Long t = System.currentTimeMillis();
 		try {
@@ -91,7 +93,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 						EmailVo emailVo = new EmailVo();
 						emailVo.setTo(TARGET_EMAIL);
 						emailVo.setSubject(EMAIL_SUBJECT_PREFIX + "Lead CODIFICADO: " + safeValue(lead.getNombreEmpresa()));
-						emailVo.setSubject("Lead CODIFICADO: " + safeValue(lead.getNombreEmpresa()));
+						emailVo.setSubject("Lead PRECUALIFICADO: " + safeValue(lead.getNombreEmpresa()));
 						emailVo.setBody(buildLeadEmailBody(lead));
 
 						emailService.sendEmailHtml(emailVo);
@@ -150,7 +152,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 		appendRow(body, "Teléfono contacto", safeValue(lead.getTelefonoContacto()));
 		appendRow(body, "Email contacto", safeValue(lead.getEmailContacto()));
 		appendRow(body, "Empresa", safeValue(lead.getNombreEmpresa()));
-		appendRow(body, "Actividad", safeValue(lead.getActividad()));
+		appendRow(body, "Actividad empresarial", safeValue(lead.getActividad()));
 		appendRow(body, "Nº empleados", safeValue(lead.getNempleados()));
 		appendRow(body, "Teléfono empresa", safeValue(lead.getTelefonoEmpresa()));
 		appendRow(body, "Provincia", safeValue(lead.getProvincia()));
