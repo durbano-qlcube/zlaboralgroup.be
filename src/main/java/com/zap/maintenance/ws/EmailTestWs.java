@@ -69,7 +69,7 @@ public class EmailTestWs {
 			emailVo.setTo("dugt13@gmail.com");
 			emailVo.setSubject("TEST EMAIL");
 			emailVo.setBody("Esto es una prueba");
-			emailService.sendEmail(emailVo);
+			emailService.sendEmailHtml(emailVo);
 			
 			return Response.ok().build();
 
