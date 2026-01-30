@@ -34,6 +34,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private static final String JOB_NAME = "SEND_CODIFIED_LEADS_EMAIL";
 	private static final String USERNAME = "JOB";
 	private static final String TARGET_EMAIL = "emanuel97gus@gmail.com";
+	private static final String EMAIL_SUBJECT_PREFIX = "AVANLEAD LEAD --- ";
 	private String TAG = "";
 	private static Boolean hasToExecuteJob = false;
 	private Long idJobActivity = 0L;
@@ -89,6 +90,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 
 						EmailVo emailVo = new EmailVo();
 						emailVo.setTo(TARGET_EMAIL);
+						emailVo.setSubject(EMAIL_SUBJECT_PREFIX + "Lead CODIFICADO: " + safeValue(lead.getNombreEmpresa()));
 						emailVo.setSubject("Lead CODIFICADO: " + safeValue(lead.getNombreEmpresa()));
 						emailVo.setBody(buildLeadEmailBody(lead));
 
