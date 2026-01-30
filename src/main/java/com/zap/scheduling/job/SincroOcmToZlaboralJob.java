@@ -104,7 +104,7 @@ public class SincroOcmToZlaboralJob implements Serializable {
 
 							String telefonoContacto = StringUtils.defaultIfBlank(ocm.getTelefonoContacto(),
 									ocm.getNumber1());
-							boolean canUpdateStatus = !StatusAcquisitionEnum.CODIFICADO.equals(existing.getStatus());
+							boolean canUpdateStatus = !StatusAcquisitionEnum.PRECUALIFICADO.equals(existing.getStatus());
 							boolean statusChanged = canUpdateStatus && (existing.getStatus() == null
 									|| !existing.getStatus().toString().equals(statusOCM.toString()));
 							boolean shouldUpdate = statusChanged
@@ -214,7 +214,7 @@ public class SincroOcmToZlaboralJob implements Serializable {
 		if (ocm.getStatus() != null && (ocm.getStatus() == 0 || ocm.getStatus() == 10)) {
 			nuevo.setStatus(StatusAcquisitionEnum.CERRADO);
 		} else {
-			nuevo.setStatus(StatusAcquisitionEnum.CODIFICADO);
+			nuevo.setStatus(StatusAcquisitionEnum.ABIERTO);
 		}
 		nuevo.setOcmId(ocm.getIdOcm().intValue());
 		nuevo.setOcmLastAgent(ocm.getLastAgent());

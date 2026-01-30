@@ -35,6 +35,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private static final String USERNAME = "JOB";
 	private static final String EMAIL_SUBJECT_PREFIX = "AVANLEAD LEAD --- ";
 	private static final String TARGET_EMAIL = "dugt13@gmail.com";
+//	private static final String TARGET_EMAIL = "emanuel97gus@gmail.com";
 
 	private String TAG = "";
 	private static Boolean hasToExecuteJob = false;
@@ -92,16 +93,16 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 
 						EmailVo emailVo = new EmailVo();
 						emailVo.setTo(TARGET_EMAIL);
-						emailVo.setSubject(EMAIL_SUBJECT_PREFIX + "Lead CODIFICADO: " + safeValue(lead.getNombreEmpresa()));
-						emailVo.setSubject("Lead PRECUALIFICADO: " + safeValue(lead.getNombreEmpresa()));
+						emailVo.setSubject("AVANLEAD  (LEAD) PRECUALIFICADO: " + safeValue(lead.getNombreEmpresa())
+								+ " " + safeValue(lead.getTelefonoContacto()));
 						emailVo.setBody(buildLeadEmailBody(lead));
 
 						emailService.sendEmailHtml(emailVo);
 						markEmailSent(lead);
 						LOGGER.info("{} - Email sent for lead id:{}", jobTag, lead.getIdAcquisition());
 					} catch (Exception e) {
-						LOGGER.error("{} - Error sending email for lead id:{} - {}", jobTag,
-								lead.getIdAcquisition(), e.getMessage(), e);
+						LOGGER.error("{} - Error sending email for lead id:{} - {}", jobTag, lead.getIdAcquisition(),
+								e.getMessage(), e);
 					}
 				}
 			}
@@ -112,7 +113,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	}
 
 	private List<AcquisitionVo> loadCodifiedPendingLeads() {
-		return acquisitionService.loadByStatusAndEmailStatus(StatusAcquisitionEnum.CODIFICADO,
+		return acquisitionService.loadByStatusAndEmailStatus(StatusAcquisitionEnum.PRECUALIFICADO,
 				EstadoEnvioCorreoEnum.PENDIENTE);
 	}
 
@@ -152,7 +153,7 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 		appendRow(body, "Teléfono contacto", safeValue(lead.getTelefonoContacto()));
 		appendRow(body, "Email contacto", safeValue(lead.getEmailContacto()));
 		appendRow(body, "Empresa", safeValue(lead.getNombreEmpresa()));
-		appendRow(body, "Actividad empresarial", safeValue(lead.getActividad()));
+		appendRow(body, "Actividad económica", safeValue(lead.getActividad()));
 		appendRow(body, "Nº empleados", safeValue(lead.getNempleados()));
 		appendRow(body, "Teléfono empresa", safeValue(lead.getTelefonoEmpresa()));
 		appendRow(body, "Provincia", safeValue(lead.getProvincia()));

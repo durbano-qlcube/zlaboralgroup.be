@@ -4,7 +4,7 @@ package com.zap.acquisition.vo;
 public enum StatusAcquisitionEnum implements java.io.Serializable
 {
 
-	CODIFICADO,
+	PRECUALIFICADO,
 	CERRADO,	
 	ABIERTO;
 
