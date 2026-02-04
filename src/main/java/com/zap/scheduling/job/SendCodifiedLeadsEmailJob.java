@@ -34,9 +34,12 @@ public class SendCodifiedLeadsEmailJob implements Serializable {
 	private static final String JOB_NAME = "SEND_CODIFIED_LEADS_EMAIL";
 	private static final String USERNAME = "JOB";
 	private static final String EMAIL_SUBJECT_PREFIX = "AVANLEAD LEAD --- ";
+
 	private static final String TARGET_EMAIL = "dugt13@gmail.com";
 	private static final String CC_EMAIL = "info@avanforma.com";
+
 //	private static final String TARGET_EMAIL = "emanuel97gus@gmail.com";
+//	private static final String CC_EMAIL = "emanuel.cardona@gteamhub.com";
 
 	private String TAG = "";
 	private static Boolean hasToExecuteJob = false;
